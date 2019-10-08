@@ -8,13 +8,16 @@
 
 import React, { Component } from 'react';
 import { Icon,Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card} from 'native-base'
-import {Image,View} from 'react-native'
-import Carousel from 'react-native-snap-carousel';
+import {Image,View,StyleSheet,Dimensions} from 'react-native';
+import Carousel from 'react-native-banner-carousel';
+
 
 export default class App extends Component{
   constructor(props){
     super(props)
     this.state={
+      BannerWidth: Dimensions.get('window').width,
+      BannerHeight: 260,
       entries: [{
         title: 'The Secret of Angel',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
@@ -28,6 +31,13 @@ export default class App extends Component{
     }
   }
   
+  renderPage(image, index) {
+    return (
+        <View key={index}>
+            <Image style={{ width: this.state.BannerWidth, height: this.state.BannerHeight }} source={{ uri: image.image }} />
+        </View>
+    );
+}
   render() {
     
     return (
@@ -38,7 +48,17 @@ export default class App extends Component{
             <Icon name="search" onPress={() => alert('SEARCH BUTTON')}/>
           </Item>
           <Item>
-          
+          <View style={styles.container}>
+                <Carousel
+                    autoplay
+                    autoplayTimeout={5000}
+                    loop
+                    index={0}
+                    pageSize={this.state.BannerWidth}
+                >
+                    {this.state.entries.map((image, index) => this.renderPage(image, index))}
+                </Carousel>
+            </View>
           </Item>
         </Content>
         <Footer>
@@ -61,3 +81,11 @@ export default class App extends Component{
     )
   }
 };
+
+const styles = StyleSheet.create({
+  container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      justifyContent: 'center'
+  },
+});
