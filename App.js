@@ -1,154 +1,21 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React, {Component} from 'react'
+import {createAppContainer} from 'react-navigation'
+import {createStackNavigator} from 'react-navigation-stack'
+import Foryouscreen from './screens/Foryouscreen'
+import Login_screen from './screens/Login_screen'
 
-import React, { Component } from 'react';
-import { Icon,Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
-import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList} from 'react-native';
-import Carousel from 'react-native-banner-carousel';
+const AppNavigator = createStackNavigator({
+  Login : Login_screen,
+  Fyscreen: Foryouscreen
+},
+{
+  initialRouteName : 'Login'
+})
+
+const AppContainer = createAppContainer(AppNavigator)
 
 export default class App extends Component{
-  constructor(props){
-    super(props)
-    this.state={
-      BannerWidth: Dimensions.get('window').width,
-      BannerHeight: 260,
-      entries: [{
-        title: 'The Secret of Angel',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Pasutri Gaje',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Young Mom',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      },{
-        title: 'The Secret of Angel',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Pasutri Gaje',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Young Mom',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      },{
-        title: 'The Secret of Angel',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Pasutri Gaje',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Young Mom',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }]
-    }
+  render(){
+    return <AppContainer/>
   }
-  
-  renderPage(image, index) {
-    return (
-        <View key={index} style={{marginTop: 10, borderWidth:2}}>
-            <Image style={{ width: this.state.BannerWidth, height: this.state.BannerHeight }} source={{ uri: image.image }} />
-        </View>
-    );
 }
-  favoritePage(image, index) {
-    return (
-      <View style={{height:100, width:100,borderWidth:0, marginTop: 20}}>
-        <View>
-          <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
-        </View>
-        <Text style={{fontSize:10}}>{image.title}</Text>
-      </View>
-    );
-  }
-  allPage(image, index) {
-    return (
-      <ListItem style={{height:100,borderWidth:0}}>
-        <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
-        <Body>
-        <Text style={{fontSize:10}}>{image.title}</Text>
-        <Button warning style={{height:15,width:70,marginLeft:12}}><Text style={{fontSize:7}}>+ Favorite</Text>
-        </Button>
-        </Body>
-      </ListItem>
-    );
-  }
-  
-  render() {
-    
-    return (
-      <Container>
-        <Content>
-          <Item rounded style={{borderWidth:2}}>
-            <Input ></Input>
-            <Icon name="search" onPress={() => alert('SEARCH BUTTON')}/>
-          </Item>
-          <Item>
-          <View style={styles.container}>
-                <Carousel
-                    autoplay
-                    autoplayTimeout={5000}
-                    loop
-                    index={0}
-                    pageSize={this.state.BannerWidth}
-                >
-                    {this.state.entries.map((image, index) => this.renderPage(image, index))}
-                </Carousel>
-            </View>
-          </Item>
-          <Item style={{borderWidth:0}}>
-            <Label>
-              <Text style={{fontSize:20}}>Favourite</Text>
-            </Label>
-            </Item>
-          <Item style={{borderWidth:0}}>
-            <ScrollView horizontal={true} style={{borderWidth:0}}>
-              {this.state.entries.map((image, index) => this.favoritePage(image, index))}
-            </ScrollView>
-          </Item>
-          <Item style={{borderWidth:0}}>
-            <Label>
-              <Text style={{fontSize:20}}>ALL</Text>
-            </Label>
-          </Item>
-          <Item style={{borderWidth:0}}>
-            <FlatList style={{borderWidth:0}}
-            data={this.state.entries} 
-            renderItem={({ item }) => this.allPage(item)}
-            keyExtractor={item => item.id}
-            >
-            </FlatList>
-          </Item>
-        </Content>
-        <Footer>
-          <FooterTab>
-            <Button vertical>
-              <Icon name="apps"></Icon>
-              <Text>For You</Text>
-            </Button>
-            <Button vertical>
-              <Icon name="star"></Icon>
-              <Text>Favorite</Text>
-            </Button>
-            <Button vertical>
-              <Icon name="person"></Icon>
-              <Text>Profile</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
-    )
-  }
-};
-
-const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      justifyContent: 'center'
-  },
-});

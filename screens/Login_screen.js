@@ -8,9 +8,15 @@
 
 import React, { Component } from 'react';
 import { Icon,Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer} from 'native-base'
+import Foryouscreen from './Foryouscreen'
+import {createStackNavigator} from 'react-navigation-stack'
 
 
-export default class App extends Component{
+const AppNavigator = createStackNavigator({
+  Fyscreen: Foryouscreen
+})
+
+export default class Login_screen extends Component{
   constructor(props){
     super(props)
     this.state={
@@ -19,6 +25,8 @@ export default class App extends Component{
       allow : true
     }
   }
+
+  
   validate = () => {
     
     if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.string)) {
@@ -28,7 +36,8 @@ export default class App extends Component{
         text: "Format Email Benar",
         buttonText: "Okay",
         duration: 3000,
-        });  
+        });
+      this.props.navigation.navigate('Fyscreen');  
     }else{
       this.state.allow = false;
       alert('Gagal Masuk');
