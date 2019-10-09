@@ -7,10 +7,9 @@
  */
 
 import React, { Component } from 'react';
-import { Icon,Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card} from 'native-base'
-import {Image,View,StyleSheet,Dimensions} from 'react-native';
+import { Icon,Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
+import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList} from 'react-native';
 import Carousel from 'react-native-banner-carousel';
-
 
 export default class App extends Component{
   constructor(props){
@@ -27,23 +26,64 @@ export default class App extends Component{
       }, {
         title: 'Young Mom',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+      },{
+        title: 'The Secret of Angel',
+        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+      }, {
+        title: 'Pasutri Gaje',
+        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+      }, {
+        title: 'Young Mom',
+        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+      },{
+        title: 'The Secret of Angel',
+        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+      }, {
+        title: 'Pasutri Gaje',
+        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+      }, {
+        title: 'Young Mom',
+        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }]
     }
   }
   
   renderPage(image, index) {
     return (
-        <View key={index}>
+        <View key={index} style={{marginTop: 10, borderWidth:2}}>
             <Image style={{ width: this.state.BannerWidth, height: this.state.BannerHeight }} source={{ uri: image.image }} />
         </View>
     );
 }
+  favoritePage(image, index) {
+    return (
+      <View style={{height:100, width:100,borderWidth:0, marginTop: 20}}>
+        <View>
+          <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
+        </View>
+        <Text style={{fontSize:10}}>{image.title}</Text>
+      </View>
+    );
+  }
+  allPage(image, index) {
+    return (
+      <ListItem style={{height:100,borderWidth:2}}>
+        <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
+        <Body>
+        <Text style={{fontSize:10}}>{image.title}</Text>
+        <Button style={{height:30,width:50}}>
+        </Button>
+        </Body>
+      </ListItem>
+    );
+  }
+  
   render() {
     
     return (
       <Container>
         <Content>
-          <Item rounded >
+          <Item rounded style={{borderWidth:2}}>
             <Input ></Input>
             <Icon name="search" onPress={() => alert('SEARCH BUTTON')}/>
           </Item>
@@ -59,6 +99,29 @@ export default class App extends Component{
                     {this.state.entries.map((image, index) => this.renderPage(image, index))}
                 </Carousel>
             </View>
+          </Item>
+          <Item style={{borderWidth:0}}>
+            <Label>
+              <Text style={{fontSize:20}}>Favourite</Text>
+            </Label>
+            </Item>
+          <Item style={{borderWidth:0}}>
+            <ScrollView horizontal={true} style={{borderWidth:0}}>
+              {this.state.entries.map((image, index) => this.favoritePage(image, index))}
+            </ScrollView>
+          </Item>
+          <Item style={{borderWidth:0}}>
+            <Label>
+              <Text style={{fontSize:20}}>ALL</Text>
+            </Label>
+          </Item>
+          <Item style={{borderWidth:0}}>
+            <FlatList style={{borderWidth:2}}
+            data={this.state.entries} 
+            renderItem={({ item }) => this.allPage(item)}
+            keyExtractor={item => item.id}
+            >
+            </FlatList>
           </Item>
         </Content>
         <Footer>
