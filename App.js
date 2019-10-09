@@ -67,11 +67,11 @@ export default class App extends Component{
   }
   allPage(image, index) {
     return (
-      <ListItem style={{height:100,borderWidth:2}}>
+      <ListItem style={{height:100,borderWidth:0}}>
         <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
         <Body>
         <Text style={{fontSize:10}}>{image.title}</Text>
-        <Button style={{height:30,width:50}}>
+        <Button warning style={{height:15,width:70,marginLeft:12}}><Text style={{fontSize:7}}>+ Favorite</Text>
         </Button>
         </Body>
       </ListItem>
@@ -116,7 +116,7 @@ export default class App extends Component{
             </Label>
           </Item>
           <Item style={{borderWidth:0}}>
-            <FlatList style={{borderWidth:2}}
+            <FlatList style={{borderWidth:0}}
             data={this.state.entries} 
             renderItem={({ item }) => this.allPage(item)}
             keyExtractor={item => item.id}
