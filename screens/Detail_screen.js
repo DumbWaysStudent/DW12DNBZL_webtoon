@@ -19,61 +19,52 @@ export default class Foryouscreen extends Component{
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
       entries: [{
-        title: 'The Secret of Angel',
+        title: 'Episode 1',
+        date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }, {
-        title: 'Pasutri Gaje',
+        title: 'Episode 2',
+        date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }, {
-        title: 'Young Mom',
+        title: 'Episode 3',
+        date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       },{
-        title: 'The Secret of Angel',
+        title: 'Episode 4',
+        date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }, {
-        title: 'Pasutri Gaje',
+        title: 'Episode 5',
+        date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }, {
-        title: 'Young Mom',
+        title: 'Episode 6',
+        date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       },{
-        title: 'The Secret of Angel',
+        title: 'Episode 7',
+        date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }, {
-        title: 'Pasutri Gaje',
+        title: 'Episode 8',
+        date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }, {
-        title: 'Young Mom',
+        title: 'Episode 9',
+        date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }]
     }
   }
   
-  renderPage(image, index) {
-    return (
-        <View key={index} style={{marginTop: 10, borderWidth:2}}>
-            <Image style={{ width: this.state.BannerWidth, height: this.state.BannerHeight }} source={{ uri: image.image }} />
-        </View>
-    );
-}
-  favoritePage(image, index) {
-    return (
-      <View style={{height:100, width:100,borderWidth:0, marginTop: 20}}>
-        <View>
-          <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
-        </View>
-        <Text style={{fontSize:10}}>{image.title}</Text>
-      </View>
-    );
-  }
   allPage(image, index) {
     return (
       <ListItem style={{height:100,borderWidth:0}}>
         <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
         <Body>
-        <Text style={{fontSize:10}}>{image.title}</Text>
-        <Button warning style={{height:15,width:70,marginLeft:12}}><Text style={{fontSize:7}}>+ Favorite</Text>
-        </Button>
+        <Text style={{fontSize:20}}>{image.title}</Text>
+        <Text style={{fontSize:10, marginTop:10}}>{image.date}</Text>
         </Body>
       </ListItem>
     );
@@ -84,38 +75,12 @@ export default class Foryouscreen extends Component{
     return (
       <Container>
         <Content>
-          <Item rounded style={{borderWidth:2}}>
-            <Input ></Input>
-            <Icon name="search" onPress={() => alert('SEARCH BUTTON')}/>
-          </Item>
           <Item>
-          <View style={styles.container}>
-                <Carousel
-                    autoplay
-                    autoplayTimeout={5000}
-                    loop
-                    index={0}
-                    pageSize={this.state.BannerWidth}
-                >
-                    {this.state.entries.map((image, index) => this.renderPage(image, index))}
-                </Carousel>
-            </View>
+          <View style={styles.container}>        
+            <Image style={{ width: this.state.BannerWidth, height: this.state.BannerHeight }} source={{ uri: this.state.entries[1].image }} />
+          </View>
           </Item>
-          <Item style={{borderWidth:0}}>
-            <Label>
-              <Text style={{fontSize:20}}>Favourite</Text>
-            </Label>
-            </Item>
-          <Item style={{borderWidth:0}}>
-            <ScrollView horizontal={true} style={{borderWidth:0}}>
-              {this.state.entries.map((image, index) => this.favoritePage(image, index))}
-            </ScrollView>
-          </Item>
-          <Item style={{borderWidth:0}}>
-            <Label>
-              <Text style={{fontSize:20}}>ALL</Text>
-            </Label>
-          </Item>
+          
           <Item style={{borderWidth:0}}>
             <FlatList style={{borderWidth:0}}
             data={this.state.entries} 
