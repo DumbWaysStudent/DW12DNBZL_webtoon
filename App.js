@@ -11,6 +11,7 @@ import Profile from './screens/Profile'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {Share} from 'react-native'
 import Edit_profile from './screens/Edit_profile'
+import My_webtoon_creation from './screens/My_webtoon_creation'
 import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
 
 onShare = async () => {
@@ -69,7 +70,11 @@ const switchContainer = createSwitchNavigator({
         },
        'Edit_profile' :{
         screen : Edit_profile
-        }
+        },
+        'web_creation' : {
+          screen : My_webtoon_creation
+        },
+        
     })
   }
   })
