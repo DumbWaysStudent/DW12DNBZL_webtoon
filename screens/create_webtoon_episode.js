@@ -12,7 +12,7 @@ import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList,TouchableOpacity} f
 import Carousel from 'react-native-banner-carousel';
 
 
-export default class create_webtoon extends Component{
+export default class create_webtoon_episode extends Component{
   constructor(props){
     super(props)
     this.state={
@@ -46,7 +46,8 @@ export default class create_webtoon extends Component{
         </TouchableOpacity>
         <Body>
         <Text style={{fontSize:20}}>{image.title}</Text>
-        <Text style={{fontSize:10}}>{image.date}</Text>
+        <Button danger style={{height:15,width:70,marginLeft:12}}><Text style={{fontSize:7}}>DELETE</Text>
+        </Button>
         </Body>
       </ListItem>
     );
@@ -58,12 +59,15 @@ export default class create_webtoon extends Component{
       <Container>
         <Content>
             <Label>
-                    <Text>Title</Text>
+                    <Text>Name</Text>
             </Label>  
           <Item regular style={{height: 40 ,width:Dimensions.get('window').width-20}}>
-            <Input style={{justifyContent:'center'}} ></Input>
+            <Input></Input>
             
           </Item>
+          <Label>
+                    <Text>Add Image</Text>
+            </Label>  
           <Item>
             <FlatList style={{borderWidth:0}}
             data={this.state.entries} 
@@ -73,8 +77,8 @@ export default class create_webtoon extends Component{
             </FlatList>
          </Item>
          <Item style={{justifyContent: 'center'}}>
-             <Button onPress={()=>this.props.navigation.navigate("create_webtoon_episode")}>
-                 <Text>+ ADD EPISODE</Text>
+             <Button style={{width : 300,justifyContent:'center'}} onPress={()=>this.props.navigation.navigate("")}>
+                 <Text>+ IMAGE</Text>
              </Button>
          </Item>
 

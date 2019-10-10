@@ -9,6 +9,7 @@ import Detail_episodes from './screens/Detail_episodes'
 import My_favourite_screen from './screens/My_favourite_screen'
 import Profile from './screens/Profile'
 import create_webtoon from './screens/create_webtoon'
+import create_webtoon_episode from './screens/create_webtoon_episode'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {Share} from 'react-native'
 import Edit_profile from './screens/Edit_profile'
@@ -89,6 +90,13 @@ const switchContainer = createSwitchNavigator({
           screen : create_webtoon,
           navigationOptions:{
             title: 'Create Webtoon',
+            headerRight : <Icon size={30} color='yellow' name="check"></Icon>
+          }
+        },
+        'create_webtoon_episode' :{
+          screen : create_webtoon_episode,
+          navigationOptions:{
+            title: 'Create Webtoon Episode',
             headerRight : <Icon size={30} color='yellow' name="check"></Icon>
           }
         }
