@@ -52,7 +52,7 @@ export default class Detail_episodes extends Component{
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }, {
         title: 'Episode 9',
-        date: '1 Januari 1945',
+        date: '1 Februari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }]
     }
