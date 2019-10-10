@@ -9,9 +9,10 @@
 import React, { Component } from 'react';
 import { Icon,Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
 import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList} from 'react-native';
-import Carousel from 'react-native-banner-carousel';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import {createStackNavigator} from 'react-navigation-stack'
 
+const 
 
 export default class Profile extends Component{
   constructor(props){
