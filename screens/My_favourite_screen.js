@@ -39,7 +39,7 @@ export default class My_favourite_screen extends Component{
         favorite: '100 + favorite',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }, {
-        title: 'Really Old MOM',
+        title: 'Really Old Young MOM',
         favorite: '100 + favorite',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       },{
@@ -48,7 +48,7 @@ export default class My_favourite_screen extends Component{
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }, {
         title: 'MOM?',
-        favorite: '100 + favorite',
+        favorite: '100 + favorasdite',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }, {
         title: 'Are You Kidding Me MOM?',
