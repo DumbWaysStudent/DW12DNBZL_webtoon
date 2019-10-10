@@ -70,9 +70,6 @@ export default class Detail_episodes extends Component{
     return (
       <Container>
         <Content>
-         
-          
-       
             <FlatList style={{borderWidth:0}}
             data={this.state.entries} 
             renderItem={({ item }) => this.allPage(item)}
