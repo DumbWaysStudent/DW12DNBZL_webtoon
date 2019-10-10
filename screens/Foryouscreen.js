@@ -12,7 +12,6 @@ import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList} from 'react-native
 import Carousel from 'react-native-banner-carousel';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import Detail_screen from './Detail_screen'
 
 
 

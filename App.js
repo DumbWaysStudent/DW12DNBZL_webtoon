@@ -10,6 +10,7 @@ import My_favourite_screen from './screens/My_favourite_screen'
 import Profile from './screens/Profile'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {Share} from 'react-native'
+import Edit_profile from './screens/Edit_profile'
 import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
 
 onShare = async () => {
@@ -44,13 +45,13 @@ const switchContainer = createSwitchNavigator({
           Detail_screen : {
             screen : Detail_screen,
             navigationOptions : {
-              headerRight: <Icon name="share" onPress={this.onShare}></Icon>
+              headerRight: <Icon name="share" onPress={() => this.onShare()}></Icon>
             }
           },
           Detail_episode : {
             screen : Detail_episodes,
             navigationOptions : {
-              headerRight : <Icon name="share" onPress={this.onShare}></Icon>
+              headerRight : <Icon name="share" onPress={()=> this.onShare()}></Icon>
             }
           }
         })
@@ -58,9 +59,19 @@ const switchContainer = createSwitchNavigator({
     favorit : {
       screen : My_favourite_screen
     },
-    profile : {
-      screen : Profile
-    }
+    'profile' : {
+      screen : createStackNavigator({
+      'profile' : {
+        screen : Profile,
+        navigationOptions : {
+          header : null
+          }
+        },
+       'Edit_profile' :{
+        screen : Edit_profile
+        }
+    })
+  }
   })
 }
 },{
@@ -73,6 +84,7 @@ const AppContainer = createAppContainer(switchContainer)
 export default class App extends Component{
   
   render(){
+    const { navigate } = this.props;
     return <AppContainer/>
   }
 }
