@@ -12,7 +12,7 @@ import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList,Share} from 'react-
 import Carousel from 'react-native-banner-carousel';
 
 
-export default class Foryouscreen extends Component{
+export default class Detail_screen extends Component{
   constructor(props){
     super(props)
     this.state={

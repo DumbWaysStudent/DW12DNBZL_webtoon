@@ -7,9 +7,13 @@
  */
 
 import React, { Component } from 'react';
-import { Icon,Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
+import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
 import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList} from 'react-native';
 import Carousel from 'react-native-banner-carousel';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/FontAwesome'
+import Detail_screen from './Detail_screen'
+
 
 
 export default class Foryouscreen extends Component{
@@ -69,7 +73,9 @@ export default class Foryouscreen extends Component{
   allPage(image, index) {
     return (
       <ListItem style={{height:100,borderWidth:0}}>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen")} style={{width: 66, height: 58}}>
         <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
+        </TouchableOpacity>
         <Body>
         <Text style={{fontSize:10}}>{image.title}</Text>
         <Button warning style={{height:15,width:70,marginLeft:12}}><Text style={{fontSize:7}}>+ Favorite</Text>

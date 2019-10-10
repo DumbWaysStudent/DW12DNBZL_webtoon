@@ -12,8 +12,6 @@ import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList} from 'react-native
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {createStackNavigator} from 'react-navigation-stack'
 
-const 
-
 export default class Profile extends Component{
   constructor(props){
     super(props)
