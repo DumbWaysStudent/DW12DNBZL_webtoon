@@ -12,6 +12,8 @@ import create_webtoon from './screens/create_webtoon'
 import create_webtoon_episode from './screens/create_webtoon_episode'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {Share} from 'react-native'
+import edit_create_webtoon from './screens/edit_create_webtoon'
+import edit_create_webtoon_episode from './screens/edit_create_webtoon_episode'
 import Edit_profile from './screens/Edit_profile'
 import My_webtoon_creation from './screens/My_webtoon_creation'
 import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
@@ -99,7 +101,22 @@ const switchContainer = createSwitchNavigator({
             title: 'Create Webtoon Episode',
             headerRight : <Icon size={30} color='yellow' name="check"></Icon>
           }
+        },
+        'edit_create_webtoon' :{
+          screen : edit_create_webtoon,
+          navigationOptions:{
+            title: 'Edit Webtoon',
+            headerRight : <Icon size={30} color='yellow' name="check"></Icon>
+          }
+        },
+        'edit_create_webtoon_episode' :{
+          screen : edit_create_webtoon_episode,
+          navigationOptions:{
+            title: 'Edit Webtoon Episode',
+            headerRight : <Icon size={30} color='yellow' name="check"></Icon>
+          }
         }
+        
     })
   }
   })
