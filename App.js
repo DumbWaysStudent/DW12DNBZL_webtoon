@@ -89,7 +89,7 @@ const switchContainer = createSwitchNavigator({
           screen : create_webtoon,
           navigationOptions:{
             title: 'Create Webtoon',
-            headerRight : <Icon style={{height:20,width:20}} name="fas fa-check"></Icon>
+            headerRight : <Icon size={30} color='yellow' name="check"></Icon>
           }
         }
     })
