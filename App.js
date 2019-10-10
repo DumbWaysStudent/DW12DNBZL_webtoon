@@ -8,6 +8,7 @@ import Detail_screen from './screens/Detail_screen'
 import Detail_episodes from './screens/Detail_episodes'
 import My_favourite_screen from './screens/My_favourite_screen'
 import Profile from './screens/Profile'
+import Edit_profile from './screens/Edit_profile'
 
 const switchContainer = createSwitchNavigator({
   Login : Login_screen,
@@ -17,11 +18,11 @@ const switchContainer = createSwitchNavigator({
         screen : createStackNavigator({
           'Fyscreen' : Foryouscreen,
           favorit : My_favourite_screen,
-          Profile : Profile
+          Profile : Edit_profile
         })
     },  
     favorit : My_favourite_screen,
-    profile : Profile
+    profile : Edit_profile
   })
 }
 },{
