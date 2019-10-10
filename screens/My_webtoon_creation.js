@@ -32,21 +32,6 @@ export default class My_webtoon_creation extends Component{
         favorite: '100 + favorite',
         episodes : 50,
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      },{
-        title: 'Teen MOM',
-        favorite: '100 + favorite',
-        episodes : 50,
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Very Old MOM',
-        favorite: '100 + favorite',
-        episodes : 50,
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Very Old MOM',
-        favorite: '100 + favorite',
-        episodes : 50,
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }]
     }
   }
@@ -69,19 +54,7 @@ export default class My_webtoon_creation extends Component{
       <Container>
         <Content>
           <Item style={{borderWidth:0}}>
-          <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={this.clickHandler}
-          style={styles.TouchableOpacityStyle}>
-          <Image
-            source={{
-              uri:
-                'https://raw.githubusercontent.com/AboutReact/sampleresource/master/plus_icon.png',
-            }}
-           
-            style={styles.FloatingButtonStyle}
-          />
-        </TouchableOpacity>
+         
             <FlatList style={{borderWidth:0}}
             data={this.state.entries} 
             renderItem={({ item }) => this.allPage(item)}
@@ -90,8 +63,20 @@ export default class My_webtoon_creation extends Component{
             </FlatList>
             
           </Item>
-          
+         
         </Content>
+        <TouchableOpacity 
+          activeOpacity={0.7}
+          onPress={()=>this.props.navigation.navigate("create_webtoon")}
+          style={styles.TouchableOpacityStyle}>
+          <Image
+            source={{
+              uri:
+                'https://raw.githubusercontent.com/AboutReact/sampleresource/master/plus_icon.png',
+            }}
+            style={styles.FloatingButtonStyle}
+          />
+        </TouchableOpacity>
       </Container>
     )
   }
@@ -110,7 +95,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     right: 30,
-    bottom: 10,
+    bottom: 0,
   },
   FloatingButtonStyle: {
     resizeMode: 'contain',

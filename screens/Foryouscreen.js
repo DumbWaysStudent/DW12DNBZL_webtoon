@@ -22,32 +22,32 @@ export default class Foryouscreen extends Component{
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
       entries: [{
-        title: 'The Secret of Angel',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+        title: 'Setan Emosi',
+        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109179-tatang-s.jpg'
       }, {
-        title: 'Pasutri Gaje',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+        title: 'Hantu Pohon Sawo',
+        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109180-tatang-s.jpg'
       }, {
-        title: 'Young Mom',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+        title: 'Yong Samson',
+        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109181-tatang-s.jpg'
       },{
-        title: 'The Secret of Angel',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+        title: 'Ririwa',
+        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109182-tatang-s.jpg'
       }, {
-        title: 'Pasutri Gaje',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+        title: 'Babi Siluman',
+        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109183-tatang-s.jpg'
       }, {
-        title: 'Young Mom',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+        title: 'Hantu',
+        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109184-tatang-s.jpg'
       },{
-        title: 'The Secret of Angel',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+        title: 'Ilmu Halimuan',
+        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109185-tatang-s.jpg'
       }, {
-        title: 'Pasutri Gaje',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+        title: 'Penakluk Iblis',
+        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109186-tatang-s.jpg'
       }, {
-        title: 'Young Mom',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+        title: 'Takut Ni,Ye',
+        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109187-tatang-s.jpg'
       }]
     }
   }
@@ -55,15 +55,19 @@ export default class Foryouscreen extends Component{
   renderPage(image, index) {
     return (
         <View key={index} style={{marginTop: 10, borderWidth:2}}>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})}>
             <Image style={{ width: this.state.BannerWidth, height: this.state.BannerHeight }} source={{ uri: image.image }} />
+            </TouchableOpacity>
         </View>
     );
 }
   favoritePage(image, index) {
     return (
       <View style={{height:100, width:100,borderWidth:0, marginTop: 20}}>
-        <View>
+        <View key={image.index}>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})}>
           <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
+          </TouchableOpacity>
         </View>
         <Text style={{fontSize:10}}>{image.title}</Text>
       </View>
@@ -72,7 +76,7 @@ export default class Foryouscreen extends Component{
   allPage(image, index) {
     return (
       <ListItem style={{height:100,borderWidth:0}}>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen")} style={{width: 66, height: 58}}>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})} style={{width: 66, height: 58}}>
         <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
         </TouchableOpacity>
         <Body>

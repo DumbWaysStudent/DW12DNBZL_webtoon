@@ -8,6 +8,7 @@ import Detail_screen from './screens/Detail_screen'
 import Detail_episodes from './screens/Detail_episodes'
 import My_favourite_screen from './screens/My_favourite_screen'
 import Profile from './screens/Profile'
+import create_webtoon from './screens/create_webtoon'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {Share} from 'react-native'
 import Edit_profile from './screens/Edit_profile'
@@ -45,17 +46,20 @@ const switchContainer = createSwitchNavigator({
           },
           Detail_screen : {
             screen : Detail_screen,
-            navigationOptions : {
-              headerRight: <Icon name="share" onPress={() => this.onShare()}></Icon>
-            }
+            navigationOptions: ({ navigation }) => ({
+              title: `${navigation.state.params.title.title}`,
+              headerRight: <Icon name="share" onPress={() => onShare()}></Icon>
+            }),
+            
           },
           Detail_episode : {
             screen : Detail_episodes,
-            navigationOptions : {
-              headerRight : <Icon name="share" onPress={()=> this.onShare()}></Icon>
-            }
+            navigationOptions: ({ navigation }) => ({
+              title: `${navigation.state.params.title.title}`,
+              headerRight: <Icon name="share" onPress={() => onShare()}></Icon>
+            }),
           }
-        })
+      })
     },  
     favorit : {
       screen : My_favourite_screen
@@ -69,12 +73,25 @@ const switchContainer = createSwitchNavigator({
           }
         },
        'Edit_profile' :{
-        screen : Edit_profile
+        screen : Edit_profile,
+        navigationOptions:{
+          title : 'Profile',
+          headerRight :<Icon name="arrow" style={{height: 20,width:20}}></Icon>
+        }
         },
         'web_creation' : {
-          screen : My_webtoon_creation
+          screen : My_webtoon_creation,
+          navigationOptions:{
+            title: 'My Webtoon'
+          }
         },
-        
+        'create_webtoon' :{
+          screen : create_webtoon,
+          navigationOptions:{
+            title: 'Create Webtoon',
+            headerRight : <Icon style={{height:20,width:20}} name="fas fa-check"></Icon>
+          }
+        }
     })
   }
   })

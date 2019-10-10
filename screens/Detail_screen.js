@@ -62,7 +62,7 @@ export default class Detail_screen extends Component{
   allPage(image, index) {
     return (
       <ListItem style={{height:100,borderWidth:0}}>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_episode")}>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_episode", {title :image})}>
         <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
         </TouchableOpacity>
         <Body>
