@@ -93,10 +93,15 @@ export default class Foryouscreen extends Component{
     return (
       <Container>
         <Content>
-          <Item rounded style={{borderWidth:2}}>
-            <Input ></Input>
-            <Icon name="search" onPress={() => alert('SEARCH BUTTON')}/>
+          <Header searchBar rounded>
+          <Item>
+            <Input placeholder="Search" />
+            <Icon size={20} name="search" />
           </Item>
+          <Button transparent>
+            <Text>Search</Text>
+          </Button>
+          </Header>
           <Item>
           <View style={styles.container}>
                 <Carousel

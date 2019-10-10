@@ -25,19 +25,6 @@ export default class Profile extends Component{
     
     return (
       <Container>
-        <Header>
-          <Item>
-            <Item>
-              <Icon name="arrow-left" onPress={() => this.props.navigation.goBack(null)}></Icon>
-            <Body>
-              <Text>PROFILE</Text>
-            </Body>
-            <Right>
-              <Icon name="pencil" onPress={()=>this.props.navigation.navigate("Edit_profile")}></Icon>
-            </Right>
-            </Item>
-          </Item>
-        </Header>
         <Content>
           <Item style={{borderWidth:0, justifyContent:"center"}}>
               <Image style={{width: 300, height: 300, borderRadius: 400/ 2}}  source={{uri : 'https://cdn3.iconfinder.com/data/icons/social-messaging-productivity-6/128/profile-female-circle2-512.png'}}></Image>

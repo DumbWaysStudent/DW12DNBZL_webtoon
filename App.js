@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {createAppContainer,createSwitchNavigator} from 'react-navigation'
+import {createAppContainer,createSwitchNavigator,NavigationActions} from 'react-navigation'
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 import {createStackNavigator} from 'react-navigation-stack'
 import Foryouscreen from './screens/Foryouscreen'
@@ -16,6 +16,7 @@ import edit_create_webtoon from './screens/edit_create_webtoon'
 import edit_create_webtoon_episode from './screens/edit_create_webtoon_episode'
 import Edit_profile from './screens/Edit_profile'
 import My_webtoon_creation from './screens/My_webtoon_creation'
+
 import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
 
 onShare = async () => {
@@ -46,40 +47,47 @@ const switchContainer = createSwitchNavigator({
         screen : createStackNavigator({
           'Fyscreen' : {
             screen : Foryouscreen,
+            navigationOptions:{
+              header: null
+            }
           },
           Detail_screen : {
             screen : Detail_screen,
             navigationOptions: ({ navigation }) => ({
               title: `${navigation.state.params.title.title}`,
               headerRight: <Icon name="share" onPress={() => onShare()}></Icon>
-            }),
-            
+            }), 
           },
           Detail_episode : {
             screen : Detail_episodes,
             navigationOptions: ({ navigation }) => ({
               title: `${navigation.state.params.title.title}`,
               headerRight: <Icon name="share" onPress={() => onShare()}></Icon>
-            }),
+            })
           }
       })
     },  
     favorit : {
-      screen : My_favourite_screen
+      screen : My_favourite_screen,
+      tabBarLabel : 'Favorite',
+      tabBarIcon : <Icon name="star" size={30}></Icon>
     },
     'profile' : {
       screen : createStackNavigator({
       'profile' : {
         screen : Profile,
-        navigationOptions : {
-          header : null
-          }
+        navigationOptions: ({navigation}) => ({
+          title: 'Profile',
+          tabBarLabel : 'Profil',
+          tabBarIcon : <Icon name="user" size={30}></Icon>,
+          headerRight :(<Icon name="edit" size={30} onPress={() => navigation.navigate("Edit_profile")} color='yellow'/>)
+          })
         },
        'Edit_profile' :{
         screen : Edit_profile,
         navigationOptions:{
           title : 'Profile',
-          headerRight :<Icon name="arrow" style={{height: 20,width:20}}></Icon>
+          headerRight :<Icon name="check" size={30} color='yellow'></Icon>
         }
         },
         'web_creation' : {
