@@ -34,8 +34,8 @@ KUNTUL app is a comic book reader app. This app is dedicated to a novelist named
 # Installation and Configuration
   **Frontend:**
 ```
-$ git clone https://github.com/DumbWaysDotId/course-repo-example
-$ cd course-repo-example/frontend
+$ git clone https://github.com/DumbWaysStudent/DW12DNBZL_webtoon.git
+$ cd DW12DNBZL_webtoon
 $ npm install
 $ react-native run-ios #for ios
 $ react-native run-android #for android
