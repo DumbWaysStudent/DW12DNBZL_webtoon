@@ -21,15 +21,15 @@ export default class Detail_episodes extends Component{
       entries: [{
         title: 'Episode 1',
         date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+        image: 'https://1.bp.blogspot.com/-W_OZk6ZPMgU/Wd79RTN7YFI/AAAAAAAAD2U/NIJX1WQFOFsZ0gvPfIwKEa1515V-ugy3ACK4BGAYYCw/s1600/Petruk%2BGareng%2B-%2BSetan%2BPerawan-00.jpg'
       }, {
         title: 'Episode 2',
         date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+        image: 'http://www.egrafis.com/images/baca-komik-tatang-s-malam-satu-suro-permainan-bocah.jpg'
       }, {
         title: 'Episode 3',
         date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
+        image: 'https://calisweb.files.wordpress.com/2016/08/31.png?w=736'
       },{
         title: 'Episode 4',
         date: '1 Januari 1945',
