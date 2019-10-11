@@ -29,19 +29,19 @@ export default class Profile extends Component{
           <Item style={{borderWidth:0, justifyContent:"center"}}>
               <Image style={{width: 300, height: 300, borderRadius: 400/ 2}}  source={{uri : 'https://cdn3.iconfinder.com/data/icons/social-messaging-productivity-6/128/profile-female-circle2-512.png'}}></Image>
           </Item>
-          <Item>
+          <Item style={{borderWidth:2,height:50}}>
             <TouchableOpacity style={{width:Dimensions.get('window').width}} onPress={()=>this.props.navigation.navigate("web_creation")}>
                 <Item>
-                <Text>Create WebToon</Text>
+                <Text style={{marginLeft:20}}>Create WebToon</Text>
                 <Right>
-                <Icon name="arrow-forward"/>
+                <Icon name="angle-right" size={30} style={{marginRight:20}}/>
                 </Right>
                 </Item>
             </TouchableOpacity>  
           </Item>
-          <Item>
+          <Item style={{borderWidth:2,height:50}}>
             <TouchableOpacity style={{width:Dimensions.get('window').width}} onPress={() => alert('LogOut')}> 
-            <Text>Log Out</Text>
+            <Text style={{marginLeft:20}}>Log Out</Text>
             </TouchableOpacity> 
           </Item>
         </Content>

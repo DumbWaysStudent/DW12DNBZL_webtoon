@@ -63,25 +63,25 @@ export default class Foryouscreen extends Component{
 }
   favoritePage(image, index) {
     return (
-      <View style={{height:100, width:100,borderWidth:0, marginTop: 20}}>
+      <View style={{height:90, width:100,borderWidth:0, marginTop: 0,justifyContent:'center'}}>
         <View key={image.index}>
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})}>
-          <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
+          <Image source={{uri : image.image}} style={{width: 80, height: 70}}></Image>
           </TouchableOpacity>
         </View>
-        <Text style={{fontSize:10}}>{image.title}</Text>
+        <Text style={{fontSize:10,justifyContent:'center'}}>{image.title}</Text>
       </View>
     );
   }
   allPage(image, index) {
     return (
-      <ListItem style={{height:100,borderWidth:0}}>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})} style={{width: 66, height: 58}}>
-        <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
+      <ListItem style={{height:80,borderWidth:0}}>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})} style={{width: 80, height: 70}}>
+        <Image source={{uri : image.image}} style={{width: 70, height: 80}}></Image>
         </TouchableOpacity>
         <Body>
-        <Text style={{fontSize:10}}>{image.title}</Text>
-        <Button warning style={{height:15,width:70,marginLeft:12}}><Text style={{fontSize:7}}>+ Favorite</Text>
+        <Text style={{fontSize:15}}>{image.title}</Text>
+        <Button warning style={{height:20,width:70,marginLeft:12}}><Text style={{fontSize:7}}>+ Favorite</Text>
         </Button>
         </Body>
       </ListItem>
@@ -92,8 +92,8 @@ export default class Foryouscreen extends Component{
     
     return (
       <Container>
-        <Content>
-          <Header searchBar rounded>
+        <Content contentContainerStyle={styles.container}>
+          <Header searchBar rounded style={{backgroundColor:'#72ea12'}}>
           <Item>
             <Input placeholder="Search" />
             <Icon size={20} name="search" />
@@ -115,7 +115,7 @@ export default class Foryouscreen extends Component{
                 </Carousel>
             </View>
           </Item>
-          <Item style={{borderWidth:0}}>
+          <Item style={{justifyContent:'center',backgroundColor:'#72ea12'}}>
             <Label>
               <Text style={{fontSize:20}}>Favourite</Text>
             </Label>
@@ -125,7 +125,7 @@ export default class Foryouscreen extends Component{
               {this.state.entries.map((image, index) => this.favoritePage(image, index))}
             </ScrollView>
           </Item>
-          <Item style={{borderWidth:0}}>
+          <Item style={{justifyContent:'center',backgroundColor:'#72ea12'}}>
             <Label>
               <Text style={{fontSize:20}}>ALL</Text>
             </Label>
@@ -147,8 +147,13 @@ export default class Foryouscreen extends Component{
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      justifyContent: 'center'
+    backgroundColor : 'white',
   },
-});
+  logo : {
+    flex :1,
+    width: "100%",
+    height: 200,
+    resizeMode: "contain",
+    alignSelf: 'center'
+  }
+})

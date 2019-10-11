@@ -40,12 +40,14 @@ export default class Edit_profile extends Component{
           <Item style={{borderWidth:0, justifyContent:"center"}}>
               <Image style={{width: 200, height: 200, borderRadius: 200/ 2, borderWidth:4,borderColor:'black'}}  source={{uri : photo.uri}}></Image>
               <TouchableOpacity onPress={this.handleChoosePhoto}>
-              <Icon name="camera"></Icon>
+              <Icon name="camera" size={20}></Icon>
               </TouchableOpacity>
           </Item>
-          <Item>
-            <Input placeholder="Your Name">
+          <Item style={{justifyContent:'center',marginTop:20}}>
+          <Item style={{width:300}}>
+            <Input style={{borderWidth:2, width: 100}} placeholder="Your Name">
             </Input>
+          </Item>
           </Item>
         </Content>
         

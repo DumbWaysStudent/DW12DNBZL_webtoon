@@ -55,22 +55,27 @@ const switchContainer = createSwitchNavigator({
             screen : Detail_screen,
             navigationOptions: ({ navigation }) => ({
               title: `${navigation.state.params.title.title}`,
-              headerRight: <Icon name="share" onPress={() => onShare()}></Icon>
+              headerRight: <Icon name="share-alt" size={30} onPress={() => onShare()}></Icon>
             }), 
           },
           Detail_episode : {
             screen : Detail_episodes,
             navigationOptions: ({ navigation }) => ({
               title: `${navigation.state.params.title.title}`,
-              headerRight: <Icon name="share" onPress={() => onShare()}></Icon>
+              headerRight: <Icon name="share-alt" size={30} onPress={() => onShare()}></Icon>
             })
           }
-      })
+      }),navigationOptions :{
+        tabBarLabel : 'For You',
+        tabBarIcon : <Icon name="bars" size={30}></Icon>
+      }
     },  
     favorit : {
       screen : My_favourite_screen,
-      tabBarLabel : 'Favorite',
+      navigationOptions : {
+        tabBarLabel : 'Favorite',
       tabBarIcon : <Icon name="star" size={30}></Icon>
+      }
     },
     'profile' : {
       screen : createStackNavigator({
@@ -125,9 +130,14 @@ const switchContainer = createSwitchNavigator({
           }
         }
         
-    })
-  }
-  })
+    }),navigationOptions:{
+      tabBarLabel : 'Profile',
+      tabBarIcon : <Icon name='user' size={30}></Icon>
+    }
+  },
+  
+}, tabBarOption
+)
 }
 },{
   initialRouteName : 'Login'

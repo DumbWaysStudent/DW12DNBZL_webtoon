@@ -7,9 +7,12 @@
  */
 
 import React, { Component } from 'react';
-import { Icon,Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer} from 'native-base'
+import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup} from 'native-base'
 import Foryouscreen from './Foryouscreen'
 import {createStackNavigator} from 'react-navigation-stack'
+import {StyleSheet,Image,TouchableOpacity} from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
+
 
 
 const AppNavigator = createStackNavigator({
@@ -51,43 +54,39 @@ export default class Login_screen extends Component{
   }
   render() {
     return (
-      <Container style={{backgroundColor:'#72ea12'}}>
-        <Header style={{backgroundColor:'#72ea12'}}>
-          <Body style={{alignItems:'center'}}>
-            <Text style={{color: 'white'}}>CLONE WEBTOON</Text>
-          </Body>
-        </Header>
-        <Content contentContainerStyle={{backgroundColor:'#72ea12'}}>
+      <Container contentContainerStyle={styles.container}>
+        <Content contentContainerStyle={styles.container}>
         <Root>
-        <Content contentContainerStyle={[{justifyContent:'center', marginTop: 130}]}>
+        <Content contentContainerStyle={[{justifyContent:'center', marginTop: 0}]}>
+          <Image style={styles.logo} source={{uri :'https://mmc.tirto.id/image/otf/700x0/2018/07/02/ilustrasi-tatang-suhendra-dan-petruk-tirto.id-fuad_ratio-16x9.jpg'}}/>
           <Item style={{justifyContent: 'center',borderBottomWidth:0}}>
-            <Label style={{fontSize: 40}}>LOG IN</Label>
+            <Label style={{fontSize: 40,color:'black'}}>KUNTUL</Label>
           </Item>
           <Item style={{justifyContent: 'center',fontSize: 20,marginTop:10,borderBottomWidth:0}}>
-          <Label>Log In with your Account Webtoon</Label>
+          <Label style={{fontSize: 20,color:'black'}}>Kumpulan Novel Tatang S Jadul</Label>
           </Item>
           <Form style={{justifyContent: 'center',marginTop:20}}>
             <Item stackedLabel style={{borderBottomWidth:1}}>
-              <Label style={{marginBottom:5}}>Email</Label>
+              <Label style={{marginBottom:5, color:'black'}}>Email</Label>
               <Input type='email' style={{}} placeholder="example@gmail.com" onChangeText={(value) => this.setState({string : value})}>
               </Input>
             </Item>
             <Item stackedLabel style={{borderBottomWidth:1, marginTop: 5}}>
-              <Label style={{marginBottom:5}}>Password</Label>
+              <Label style={{marginBottom:5,color:'black'}}>Password</Label>
               <InputGroup borderType="regular" iconRight>
                 <Input secureTextEntry={this.state.eye} style={{}}/>
-                <Button onPressIn={()=> this.setState({eye : false})} onPressOut={()=> this.setState({eye : true})}>
-                <Icon name='eye-off'></Icon>
-                </Button>
+                <TouchableOpacity onPressIn={()=> this.setState({eye : false})} onPressOut={()=> this.setState({eye : true})}>
+                <Icon name='eye' size={30}></Icon>
+                </TouchableOpacity>
               </InputGroup>
             </Item>
             <Item style={{justifyContent: 'center',borderBottomWidth:0,marginTop: 10}}>
-              <Button style={{backgroundColor:'#285b03',borderWidth:1,borderColor:'#eef043'}}
+              <TouchableOpacity style={styles.buttonContainer}
                 onPress={() => this.validate()
                 }
               >
-                <Text>Submit</Text>
-              </Button>
+                <Text style={styles.buttonText}>Submit</Text>
+              </TouchableOpacity>
             </Item>
           </Form>
         </Content>
@@ -97,3 +96,29 @@ export default class Login_screen extends Component{
     )
   }
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    backgroundColor : '#5ca2c6',
+    alignItems:'center',
+    justifyContent : "space-between"
+  },
+  logo : {
+    flex :1,
+    width: "100%",
+    height: 200,
+    resizeMode: "contain",
+    alignSelf: 'center'
+  },
+  buttonContainer:{
+    backgroundColor: 'green',
+    paddingVertical: 15,
+    width : 350
+},
+buttonText:{
+    color: 'black',
+    textAlign: 'center',
+    fontWeight: '700'
+}
+})
