@@ -25,33 +25,45 @@ export default class Login_screen extends Component{
     this.state={
       eye : true,
       string : '',
-      allow : true
+      allow : true,
+      pass: '',
+      button_status : true
     }
   }
 
   
   validate = () => {
-    
-    if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.string)) {
+    if ((this.state.string !== '') && (this.state.pass !== '')){  
+      if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.string)) {
       this.state.allow = true;
-      alert('Berhasil Masuk');
+      alert('Login Success');
       Toast.show({
-        text: "Format Email Benar",
+        text: "Correct Email Format",
         buttonText: "Okay",
         duration: 3000,
         });
-      this.props.navigation.navigate('Fyscreen');  
-    }else{
+      this.props.navigation.navigate('Fyscreen'); 
+      
+      }else{
       this.state.allow = false;
-      alert('Gagal Masuk');
+      alert('Login Failed');
       Toast.show({
-        text: "Format Email Salah",
+        text: "Wrong Email Format",
         buttonText: "Okay",
         duration: 3000,
         });  
-    }
-    
+      }
+    }else{
+    Toast.show({
+      text: "email or password cant be empty",
+      buttonText: "Okay",
+      duration: 3000,
+      });  
   }
+  }
+  
+
+
   render() {
     return (
       <Container contentContainerStyle={styles.container}>
@@ -74,17 +86,16 @@ export default class Login_screen extends Component{
             <Item stackedLabel style={{borderBottomWidth:1, marginTop: 5}}>
               <Label style={{marginBottom:5,color:'black'}}>Password</Label>
               <InputGroup borderType="regular" iconRight>
-                <Input secureTextEntry={this.state.eye} style={{}}/>
+                <Input secureTextEntry={this.state.eye} style={{}} onChangeText={(value) => this.setState({pass : value})}/>
                 <TouchableOpacity onPressIn={()=> this.setState({eye : false})} onPressOut={()=> this.setState({eye : true})}>
                 <Icon name='eye' size={30}></Icon>
                 </TouchableOpacity>
               </InputGroup>
             </Item>
             <Item style={{justifyContent: 'center',borderBottomWidth:0,marginTop: 10}}>
-              <TouchableOpacity style={styles.buttonContainer}
+              <TouchableOpacity  style={styles.buttonContainer}
                 onPress={() => this.validate()
-                }
-              >
+                }>
                 <Text style={styles.buttonText}>Submit</Text>
               </TouchableOpacity>
             </Item>
@@ -112,12 +123,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   buttonContainer:{
-    backgroundColor: 'green',
+    backgroundColor: 'blue',
     paddingVertical: 15,
     width : 350
 },
 buttonText:{
-    color: 'black',
+    color: 'white',
     textAlign: 'center',
     fontWeight: '700'
 }
