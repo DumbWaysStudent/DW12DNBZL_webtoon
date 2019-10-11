@@ -45,7 +45,7 @@ export default class edit_create_webtoon extends Component{
         <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
         </TouchableOpacity>
         <Body>
-        <Text style={{fontSize:20}}>{image.title}</Text>
+        <Text style={{fontSize:12,fontWeight: 'bold'}}>{image.title}</Text>
         <Text style={{fontSize:10}}>{image.date}</Text>
         </Body>
       </ListItem>
@@ -57,15 +57,17 @@ export default class edit_create_webtoon extends Component{
     return (
       <Container>
         <Content>
-            <Label>
-                    <Text>Title</Text>
-            </Label>  
-          <Item regular style={{height: 40 ,width:Dimensions.get('window').width-20}}>
-            <Input style={{justifyContent:'center'}} ></Input>
-            
+
+          <Item style={{marginLeft:20}}>
+            <Label style={{color: 'black'}}>Title</Label>
           </Item>
-          <Item>
-            <FlatList style={{borderWidth:0}}
+          <Item style={{height: 40 ,width:335,justifyContent:'center',marginTop :10}}>
+          <Item >
+            <Input style={{ marginLeft : 20, borderWidth: 4}} ></Input>
+            </Item>
+          </Item>
+          <Item style={{justifyContent: 'center'}}>
+            <FlatList style={{borderWidth:0,width:300}}
             data={this.state.entries} 
             renderItem={({ item }) => this.allPage(item)}
             keyExtractor={item => item.id}
@@ -73,10 +75,12 @@ export default class edit_create_webtoon extends Component{
             </FlatList>
          </Item>
          <Item style={{justifyContent: 'center'}}>
-             <Button onPress={()=>this.props.navigation.navigate("create_webtoon_episode")}>
-                 <Text>+ ADD EPISODE</Text>
+             <Button style={{borderWidth: 2,borderColor: 'black',width : 300, justifyContent: 'center',backgroundColor: 'white'}} onPress={()=>this.props.navigation.navigate("edit_create_webtoon_episode")}>
+                 <Text style={{color:'black'}}>+ ADD EPISODE</Text>
              </Button>
-             <Button onPress={()=>this.props.navigation.navigate("create_webtoon_episode")}>
+             </Item>
+             <Item style={{justifyContent:'center'}}>
+             <Button style={{justifyContent:'center', backgroundColor:'red', width: 300,borderColor : 'black',borderWidth : 2, marginTop : 10}} onPress={()=>this.props.navigation.navigate("create_webtoon_episode")}>
                  <Text>DELETE</Text>
              </Button>
          </Item>

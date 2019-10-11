@@ -118,14 +118,14 @@ const switchContainer = createSwitchNavigator({
         'edit_create_webtoon' :{
           screen : edit_create_webtoon,
           navigationOptions:{
-            title: 'Edit Webtoon',
+            title: 'Edit Your Webtoon',
             headerRight : <Icon size={30} color='yellow' name="check"></Icon>
           }
         },
         'edit_create_webtoon_episode' :{
           screen : edit_create_webtoon_episode,
           navigationOptions:{
-            title: 'Edit Webtoon Episode',
+            title: 'Edit Your Webtoon Episode',
             headerRight : <Icon size={30} color='yellow' name="check"></Icon>
           }
         }

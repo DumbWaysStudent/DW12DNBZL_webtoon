@@ -41,7 +41,7 @@ export default class create_webtoon extends Component{
   allPage(image, index) {
     return (
         <ListItem style={{height:100,borderWidth:0}}>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})} style={{width: 66, height: 58}}>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate("edit_create_webtoon", {title :image})} style={{width: 66, height: 58}}>
         <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
         </TouchableOpacity>
         <Body>
