@@ -134,10 +134,9 @@ const switchContainer = createSwitchNavigator({
       tabBarLabel : 'Profile',
       tabBarIcon : <Icon name='user' size={30}></Icon>
     }
-  },
+  }
   
-}, tabBarOption
-)
+})
 }
 },{
   initialRouteName : 'Login'

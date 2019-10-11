@@ -27,6 +27,7 @@ export default class Edit_profile extends Component{
       };
       ImagePicker.launchImageLibrary(options, response => {
         if (response.uri) {
+          console.log(response.uri)
           this.setState({ photo: response });
         }
       });
