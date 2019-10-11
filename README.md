@@ -1,26 +1,50 @@
-# DW12DNBZL_webtoon
+# KUNTUL (Kumpulan Novel Tatang suhendra Jadul)
 
 
-# IMPORTANT
+# Important
 This project is still on very early development stage. If you want to use for production, use it with your own risk.
 More feature Coming Really Soon.
 
-# KUNTUL
+# Kuntul
+KUNTUL app is a comic book reader app. This app is dedicated to a novelist named Tatang Suhendra. His novels was famous in early 2000.
 
-# SCREENSHOT
-
-# FEATURES
-
-# WHY KUNTUL?
+# Screenshot
 
 
-# TECH STACK
+# Features
+  - Login
+  - List of Comic
+  - Read
+  - Create Comic
+  - Edit Ur Own Comic
 
-# PREREQUISITES
+# Why KUNTUL ?
+  - Out Of the Box App of the Year!!
+  - It's React Native , so it support Both Android and IOS
+  - Dedicated to Tatang Suhendra
+  - Simple Code , you can easily contribute to it
 
+# Tech Stacks
+  - React Native for the Mobile Frontend
 
-# INSTALLATION AND CONFIGURATION
+# Prerequisites
+  - Make sure You had been install NodeJs in your system https://nodejs.org/
+  - Then install React Native https://facebook.github.io/react-native/
 
-# SUPPORT ME
+# Installation and Configuration
+  **Frontend:**
+```
+$ git clone https://github.com/DumbWaysDotId/course-repo-example
+$ cd course-repo-example/frontend
+$ npm install
+$ react-native run-ios #for ios
+$ react-native run-android #for android
+```
+# Support Me
+  * Star this repository :star:
+  * Hire Me https://www.linkedin.com/in/retuyu88
 
-# DOWNLOAD APP
+# Contact
+* WA/TELEGRAM: +62 8131 924 821
+* email: andikaherup@gmail.com
+  
