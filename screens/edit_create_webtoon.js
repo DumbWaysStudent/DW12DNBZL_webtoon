@@ -18,6 +18,7 @@ export default class edit_create_webtoon extends Component{
     this.state={
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
+      item : this.props.navigation.state.params.title,
       entries: [{
         title: 'Episode 1',
         date: '1 Januari 1945',
@@ -63,7 +64,9 @@ export default class edit_create_webtoon extends Component{
           </Item>
           <Item style={{height: 40 ,width:335,justifyContent:'center',marginTop :10}}>
           <Item >
-            <Input style={{ marginLeft : 20, borderWidth: 4}} ></Input>
+            <Input style={{ marginLeft : 20, borderWidth: 4}} >
+              <Text>{this.state.item.title}</Text>
+            </Input>
             </Item>
           </Item>
           <Item style={{justifyContent: 'center'}}>

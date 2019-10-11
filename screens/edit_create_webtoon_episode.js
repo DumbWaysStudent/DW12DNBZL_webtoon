@@ -18,20 +18,21 @@ export default class edit_create_webtoon_episode extends Component{
     this.state={
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
+      item : this.props.navigation.state.params.title,
       entries: [{
-        title: 'Episode 1',
+        title: 'Cover.jpg',
         date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }, {
-        title: 'Episode 2',
+        title: 'Introduction.jpg',
         date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }, {
-        title: 'Episode 3',
+        title: 'page_1.jpg',
         date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       },{
-        title: 'Episode 4',
+        title: 'page_2.jpg',
         date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }]
@@ -63,7 +64,9 @@ export default class edit_create_webtoon_episode extends Component{
           </Item>
           <Item style={{height: 40 ,width:335,justifyContent:'center',marginTop :10}}>
           <Item >
-            <Input style={{ marginLeft : 20, borderWidth: 4}} ></Input>
+            <Input style={{ marginLeft : 20, borderWidth: 4}} >
+              <Text>{this.state.item.title}</Text>
+            </Input>
             </Item>
           </Item>
           <Item style={{marginLeft:20,marginTop:20}}>
@@ -82,7 +85,7 @@ export default class edit_create_webtoon_episode extends Component{
          <Item style={{justifyContent: 'center'}}>
            
               <Button style={{borderWidth: 2,borderColor: 'black',width : 300, justifyContent: 'center',backgroundColor: 'white'}} onPress={()=>this.props.navigation.navigate("create_webtoon_episode")}>
-                 <Text style={{color:'black'}}>+ ADD EPISODE</Text>
+                 <Text style={{color:'black'}}>+ ADD IMAGE</Text>
              </Button>
              </Item>
              <Item style={{justifyContent:'center'}}>

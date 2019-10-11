@@ -19,19 +19,19 @@ export default class create_webtoon extends Component{
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
       entries: [{
-        title: 'Episode 1',
+        title: 'Young MOM',
         date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }, {
-        title: 'Episode 2',
+        title: 'OK MOM',
         date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }, {
-        title: 'Episode 3',
+        title: 'Ugly MOM',
         date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       },{
-        title: 'Episode 4',
+        title: 'Are you kidding me MOM??',
         date: '1 Januari 1945',
         image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
       }]
@@ -73,8 +73,8 @@ export default class create_webtoon extends Component{
             </FlatList>
          </Item>
          <Item style={{justifyContent: 'center'}}>
-             <Button onPress={()=>this.props.navigation.navigate("create_webtoon_episode")}>
-                 <Text>+ ADD EPISODE</Text>
+             <Button onPress={()=>this.props.navigation.navigate("create_webtoon_episode")} style={{borderWidth: 2,borderColor: 'black',width : 300, justifyContent: 'center',backgroundColor: 'white'}}>
+                 <Text style={{color: 'black'}}>+ ADD EPISODE</Text>
              </Button>
          </Item>
 

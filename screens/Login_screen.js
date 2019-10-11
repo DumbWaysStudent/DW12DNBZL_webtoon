@@ -77,7 +77,7 @@ export default class Login_screen extends Component{
           <Item style={{justifyContent: 'center',fontSize: 20,marginTop:10,borderBottomWidth:0}}>
           <Label style={{fontSize: 20,color:'black'}}>Kumpulan Novel Tatang S Jadul</Label>
           </Item>
-          <Form style={{justifyContent: 'center',marginTop:20}}>
+          <Form style={{justifyContent: 'center',marginTop:20,paddingRight: 20 }}>
             <Item stackedLabel style={{borderBottomWidth:1}}>
               <Label style={{marginBottom:5, color:'black'}}>Email</Label>
               <Input type='email' style={{}} placeholder="example@gmail.com" onChangeText={(value) => this.setState({string : value})}>
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   buttonContainer:{
     backgroundColor: 'blue',
     paddingVertical: 15,
-    width : 350
+    width : 320
 },
 buttonText:{
     color: 'white',

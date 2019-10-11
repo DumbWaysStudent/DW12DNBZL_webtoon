@@ -144,7 +144,6 @@ const switchContainer = createSwitchNavigator({
 
 const AppContainer = createAppContainer(switchContainer)
 
-
 export default class App extends Component{
   
   render(){
