@@ -7,10 +7,11 @@
  */
 
 import React, { Component } from 'react';
-import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup} from 'native-base'
-import Foryouscreen from './Foryouscreen'
+import { Container,Header,Text, Body, Content, Form, Item, Input,Toast,Root, Label,InputGroup} from 'native-base'
+import Foryouscreen from './ForYou'
 import {createStackNavigator} from 'react-navigation-stack'
-import {StyleSheet,Image,TouchableOpacity} from 'react-native'
+import {StyleSheet,Image,TouchableOpacity,View,TextInput,TouchableHighlight,Dimensions} from 'react-native'
+import ImageExample from '../assets/logo'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 
@@ -64,70 +65,106 @@ export default class Login_screen extends Component{
 
   render() {
     return (
-      <Container contentContainerStyle={styles.container}>
-        <Content contentContainerStyle={styles.container}>
-        <Root>
-        <Content contentContainerStyle={[{justifyContent:'center', marginTop: 0}]}>
-          <Image style={styles.logo} source={{uri :'https://mmc.tirto.id/image/otf/700x0/2018/07/02/ilustrasi-tatang-suhendra-dan-petruk-tirto.id-fuad_ratio-16x9.jpg'}}/>
-          <Item style={{justifyContent: 'center',borderBottomWidth:0}}>
-            <Label style={{fontSize: 40,color:'black'}}>KUNTUL</Label>
-          </Item>
-          <Item style={{justifyContent: 'center',fontSize: 20,marginTop:10,borderBottomWidth:0}}>
-          <Label style={{fontSize: 20,color:'black'}}>Kumpulan Novel Tatang S Jadul</Label>
-          </Item>
-          <Form style={{justifyContent: 'center',marginTop:20,paddingRight: 20 }}>
-            <Item stackedLabel style={{borderBottomWidth:1}}>
-              <Label style={{marginBottom:5, color:'black'}}>Email</Label>
-              <Input type='email' style={{}} placeholder="example@gmail.com" onChangeText={(value) => this.setState({string : value})}>
-              </Input>
-            </Item>
-            <Item stackedLabel style={{borderBottomWidth:1, marginTop: 5}}>
-              <Label style={{marginBottom:5,color:'black'}}>Password</Label>
-              <InputGroup borderType="regular" iconRight>
-                <Input secureTextEntry={this.state.eye} style={{}} onChangeText={(value) => this.setState({pass : value})}/>
-                <TouchableOpacity onPressIn={()=> this.setState({eye : false})} onPressOut={()=> this.setState({eye : true})}>
-                <Icon name='eye' size={30}></Icon>
-                </TouchableOpacity>
-              </InputGroup>
-            </Item>
-            <Item style={{justifyContent: 'center',borderBottomWidth:0,marginTop: 10}}>
-              <TouchableOpacity  style={styles.buttonContainer}
-                onPress={() => this.validate()
-                }>
-                <Text style={styles.buttonText}>Submit</Text>
+      <View style={styles.container}>
+        <View style={styles.containerlogo}>
+        <ImageExample style={styles.logo}/>
+        <Text style={styles.apptext}>KUNTUL</Text>
+        </View>
+      <View style={styles.containerform}> 
+        <View style={styles.inputContainer}>
+          <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
+          <TextInput style={styles.inputs}
+              placeholder="Email"
+              keyboardType="email-address"
+              underlineColorAndroid='transparent'
+              onChangeText={(email) => this.setState({string: email})}/>
+        </View>
+        <View style={styles.inputContainer}>
+          <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
+          <TextInput style={styles.inputs}
+              placeholder="Password"
+              secureTextEntry={this.state.eye}
+              underlineColorAndroid='transparent'
+              onChangeText={(password) => this.setState({pass : password})}/>
+              <TouchableOpacity onPressIn={()=> this.setState({eye : false})} onPressOut={()=> this.setState({eye : true})}>
+                <Icon name='eye' size={20} style={styles.Icon}></Icon>
               </TouchableOpacity>
-            </Item>
-          </Form>
-        </Content>
-        </Root>
-        </Content>
-      </Container>
-    )
+        </View>
+        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.validate()}>
+          <Text style={styles.loginText}>Login</Text>
+        </TouchableHighlight>
+         </View>
+        </View>
+    );
   }
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex:1,
-    backgroundColor : '#5ca2c6',
-    alignItems:'center',
-    justifyContent : "space-between"
-  },
-  logo : {
-    flex :1,
-    width: "100%",
-    height: 200,
-    resizeMode: "contain",
-    alignSelf: 'center'
-  },
-  buttonContainer:{
-    backgroundColor: 'blue',
-    paddingVertical: 15,
-    width : 320
-},
-buttonText:{
-    color: 'white',
-    textAlign: 'center',
-    fontWeight: '700'
-}
-})
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#00bbd4',
+    },
+    containerlogo :{
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#00bbd4',
+      marginBottom : 50,
+      width : Dimensions.get('window').width
+    },
+    containerform : {
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#00bbd4',
+    },
+    inputContainer: {
+        borderBottomColor: '#F5FCFF',
+        backgroundColor: '#FFFFFF',
+        borderRadius:20,
+        borderBottomWidth: 1,
+        width:250,
+        height:35,
+        marginBottom:10,
+        flexDirection: 'row',
+        alignItems:'center'
+    },
+    
+    inputs:{
+        height:45,
+        marginLeft:0,
+        borderBottomColor: '#FFFFFF',
+        flex:1,
+    },
+    inputIcon:{
+      width:30,
+      height:30,
+      marginLeft:15,
+      justifyContent: 'center'
+    },
+    buttonContainer: {
+      height:45,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom:10,
+      marginTop: 20 ,
+      width:150,
+      borderRadius:30,
+    },
+    loginButton: {
+      backgroundColor: "#00bbd4",
+      borderColor : 'white',
+      borderWidth : 2
+    },
+    loginText: {
+      color: 'black',
+    },
+    apptext : {
+      fontSize : 30,
+      fontWeight : 'bold'
+    },
+    Icon :{
+      marginRight : 10
+    }
+  });
