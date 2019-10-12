@@ -84,7 +84,6 @@ export default class Detail_screen extends Component{
             <Image style={{ width: this.state.BannerWidth, height: this.state.BannerHeight }} source={{ uri: this.state.entries[1].image }} />
           </View>
           </Item>
-          
           <Item style={{borderWidth:0}}>
             <FlatList style={{borderWidth:0}}
             data={this.state.entries} 

@@ -36,7 +36,6 @@ export default class Login_screen extends Component{
     if ((this.state.string !== '') && (this.state.pass !== '')){  
       if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.string)) {
       this.state.allow = true;
-      alert('Login Success');
       Toast.show({
         text: "Correct Email Format",
         buttonText: "Okay",
@@ -46,7 +45,6 @@ export default class Login_screen extends Component{
       
       }else{
       this.state.allow = false;
-      alert('Login Failed');
       Toast.show({
         text: "Wrong Email Format",
         buttonText: "Okay",
