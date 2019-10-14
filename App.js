@@ -67,14 +67,24 @@ const switchContainer = createSwitchNavigator({
           }
       }),navigationOptions :{
         tabBarLabel : 'For You',
-        tabBarIcon : <Icon name="bars" size={30}></Icon>
+        tabBarIcon : ({tintColor}) =><Icon name='th-large' size={30} color = {tintColor}></Icon>,
+        tabBarOptions : {
+        activeTintColor : 'white',
+        inactiveBackgroundColor : '#673ab7',
+        activeBackgroundColor : '#673ab7'
+      }
       }
     },  
     favorit : {
       screen : My_favourite_screen,
       navigationOptions : {
         tabBarLabel : 'Favorite',
-      tabBarIcon : <Icon name="star" size={30}></Icon>
+        tabBarIcon : ({tintColor}) =><Icon name='star' size={30} color = {tintColor}></Icon>,
+        tabBarOptions : {
+          activeTintColor : 'white',
+          inactiveBackgroundColor : '#673ab7',
+          activeBackgroundColor : '#673ab7'
+        }
       }
     },
     'profile' : {
@@ -83,29 +93,57 @@ const switchContainer = createSwitchNavigator({
         screen : Profile,
         navigationOptions: ({navigation}) => ({
           title: 'Profile',
-          tabBarLabel : 'Profil',
+          headerTitleStyle :{
+            fontWeight : 'bold',
+            color : 'white'
+          },
+          headerStyle:{
+            backgroundColor : '#673ab7'
+          },
+          
           tabBarIcon : <Icon name="user" size={30}></Icon>,
-          headerRight :(<Icon name="edit" size={30} onPress={() => navigation.navigate("Edit_profile")} color='yellow'/>)
+          headerRight :(<Icon name="edit" size={30} onPress={() => navigation.navigate("Edit_profile")} style={{marginRight: 10}} color='#ee532f'/>)
           })
         },
        'Edit_profile' :{
         screen : Edit_profile,
         navigationOptions:{
-          title : 'Profile',
-          headerRight :<Icon name="check" size={30} color='yellow'></Icon>
+          title : 'Edit Profile',
+          headerTitleStyle :{
+            fontWeight : 'bold',
+            color : 'white'
+          },
+          headerStyle:{
+            backgroundColor : '#673ab7'
+          },
+          headerRight :<Icon name="check" size={30} color='#ee532f' style={{marginRight : 10}}></Icon>
         }
         },
         'web_creation' : {
           screen : My_webtoon_creation,
           navigationOptions:{
-            title: 'My Webtoon'
+            title: 'My Webtoon',
+            headerTitleStyle :{
+              fontWeight : 'bold',
+              color : 'white'
+            },
+            headerStyle:{
+              backgroundColor : '#673ab7'
+            },
           }
         },
         'create_webtoon' :{
           screen : create_webtoon,
           navigationOptions:{
             title: 'Create Webtoon',
-            headerRight : <Icon size={30} color='yellow' name="check"></Icon>
+            headerTitleStyle :{
+              fontWeight : 'bold',
+              color : 'white'
+            },
+            headerStyle:{
+              backgroundColor : '#673ab7'
+            },
+            headerRight :<Icon name="check" size={30} color='#ee532f' style={{marginRight : 10}}></Icon>
           }
         },
         'create_webtoon_episode' :{
@@ -132,10 +170,14 @@ const switchContainer = createSwitchNavigator({
         
     }),navigationOptions:{
       tabBarLabel : 'Profile',
-      tabBarIcon : <Icon name='user' size={30}></Icon>
+      tabBarIcon : ({tintColor}) =><Icon name='user' size={30} color = {tintColor}></Icon>,
+      tabBarOptions : {
+        activeTintColor : 'white',
+        inactiveBackgroundColor : '#673ab7',
+        activeBackgroundColor : '#673ab7'
+      }
     }
   }
-  
 })
 }
 },{

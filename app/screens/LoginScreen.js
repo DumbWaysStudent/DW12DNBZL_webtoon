@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Container,Header,Text, Body, Content, Form, Item, Input,Toast,Root, Label,InputGroup} from 'native-base'
+import { Text,Toast, Root} from 'native-base'
 import Foryouscreen from './ForYou'
 import {createStackNavigator} from 'react-navigation-stack'
 import {StyleSheet,Image,TouchableOpacity,View,TextInput,TouchableHighlight,Dimensions} from 'react-native'
@@ -65,24 +65,28 @@ export default class Login_screen extends Component{
 
   render() {
     return (
+      <Root>
       <View style={styles.container}>
         <View style={styles.containerlogo}>
         <ImageExample style={styles.logo}/>
         <Text style={styles.apptext}>KUNTUL</Text>
+        <Text fontSize={10}>Kumpulan Novel Tatang S. Jadul</Text>
         </View>
       <View style={styles.containerform}> 
         <View style={styles.inputContainer}>
-          <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
+          <Icon size={20} name='envelope' style={styles.inputIcon} > </Icon>
           <TextInput style={styles.inputs}
               placeholder="Email"
+              placeholderTextColor='#673ab7'
               keyboardType="email-address"
               underlineColorAndroid='transparent'
               onChangeText={(email) => this.setState({string: email})}/>
         </View>
         <View style={styles.inputContainer}>
-          <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
+        <Icon size={20} name='key' style={styles.inputIcon} > </Icon>
           <TextInput style={styles.inputs}
               placeholder="Password"
+              placeholderTextColor='#673ab7'
               secureTextEntry={this.state.eye}
               underlineColorAndroid='transparent'
               onChangeText={(password) => this.setState({pass : password})}/>
@@ -90,11 +94,14 @@ export default class Login_screen extends Component{
                 <Icon name='eye' size={20} style={styles.Icon}></Icon>
               </TouchableOpacity>
         </View>
+        
         <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.validate()}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableHighlight>
+        
          </View>
         </View>
+        </Root>
     );
   }
 };
@@ -102,27 +109,25 @@ export default class Login_screen extends Component{
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#00bbd4',
+      backgroundColor: '#673ab7',
     },
     containerlogo :{
-      justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#00bbd4',
-      marginBottom : 50,
+      marginTop : 70,
+      backgroundColor: '#673ab7',
+      marginBottom : 30,
       width : Dimensions.get('window').width
     },
     containerform : {
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#00bbd4',
+      backgroundColor: '#673ab7',
     },
     inputContainer: {
-        borderBottomColor: '#F5FCFF',
+        
         backgroundColor: '#FFFFFF',
         borderRadius:20,
-        borderBottomWidth: 1,
+        borderWidth : 2,
         width:250,
         height:35,
         marginBottom:10,
@@ -137,8 +142,6 @@ const styles = StyleSheet.create({
         flex:1,
     },
     inputIcon:{
-      width:30,
-      height:30,
       marginLeft:15,
       justifyContent: 'center'
     },
@@ -153,16 +156,16 @@ const styles = StyleSheet.create({
       borderRadius:30,
     },
     loginButton: {
-      backgroundColor: "#00bbd4",
-      borderColor : 'white',
+      backgroundColor: 'black',
+      borderColor : '#673ab7',
       borderWidth : 2
     },
     loginText: {
-      color: 'black',
+      color: '#673ab7',
     },
     apptext : {
       fontSize : 30,
-      fontWeight : 'bold'
+      color: 'black'
     },
     Icon :{
       marginRight : 10

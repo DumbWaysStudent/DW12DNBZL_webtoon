@@ -7,9 +7,8 @@
  */
 
 import React, { Component } from 'react';
-import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
-import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList} from 'react-native';
-import Carousel from 'react-native-banner-carousel';
+import { Container,Content, Input} from 'native-base'
+import {Image,View,StyleSheet,Dimensions} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -38,18 +37,17 @@ export default class Edit_profile extends Component{
     return (
       <Container>
         <Content>
-          <Item style={{borderWidth:0, justifyContent:"center"}}>
-              <Image style={{width: 200, height: 200, borderRadius: 200/ 2, borderWidth:4,borderColor:'black'}}  source={{uri : photo.uri}}></Image>
+          <View style={styles.imageContainer}>
+              <Image style={styles.image}  source={{uri : photo.uri}}></Image>
               <TouchableOpacity onPress={this.handleChoosePhoto}>
               <Icon name="camera" size={20}></Icon>
               </TouchableOpacity>
-          </Item>
-          <Item style={{justifyContent:'center',marginTop:20}}>
-          <Item style={{width:300}}>
-            <Input style={{borderWidth:2, width: 100}} placeholder="Your Name">
+          </View>
+          
+          <View style={styles.nameContainer}>
+            <Input style={styles.input} placeholder="Your Name">
             </Input>
-          </Item>
-          </Item>
+          </View>
         </Content>
         
       </Container>
@@ -63,4 +61,28 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       justifyContent: 'center'
   },
+  imageContainer:{
+    justifyContent:"center",
+    backgroundColor:'#673ab7',
+    alignItems:'center',
+    flexDirection : 'row',
+    height : 300
+  },
+  image:{
+    marginLeft : 15,
+    marginTop : 10,
+    width: 260, 
+    height: 260, 
+    borderRadius: 260/ 2,
+    borderWidth:4,
+    borderColor:'black'
+  },
+  nameContainer :{
+    marginTop : 20,
+    width : Dimensions.get('window').width,
+    alignItems : 'center'
+  },
+  input :{
+    borderWidth:1,
+    width: 300}
 });

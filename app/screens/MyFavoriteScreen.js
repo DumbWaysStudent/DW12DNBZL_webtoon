@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import { Icon,Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
-import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList,TouchableOpacity} from 'react-native';
+import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList,TouchableOpacity,SafeAreaView} from 'react-native';
 import Carousel from 'react-native-banner-carousel';
 
 
@@ -60,13 +60,13 @@ export default class My_favourite_screen extends Component{
   
   allPage(image, index) {
     return (
-      <ListItem style={{height:100,borderWidth:0}}>
+      <ListItem style={styles.favoriteitem}>
         <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})}>
-        <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
+        <Image source={{uri : image.image}} style={styles.image}></Image>
         </TouchableOpacity>
         <Body>
-        <Text style={{fontSize:20}}>{image.title}</Text>
-        <Text style={{fontSize:10, marginTop:10}}>{image.favorite}</Text>
+        <Text style={styles.title}>{image.title}</Text>
+        <Text style={styles.favoritetext}>{image.favorite}</Text>
         </Body>
       </ListItem>
     );
@@ -75,20 +75,25 @@ export default class My_favourite_screen extends Component{
   render() {
     
     return (
-      <Container>
-        <Content>
-        <Item rounded style={{borderWidth:2}}>
-            <Input ></Input>
-            <Icon name="search" onPress={() => alert('SEARCH BUTTON')}/>
+      <Container >
+        <Header searchBar rounded style={styles.headercontainer}>
+          <Item rounded>
+            <Input placeholder="Search" style={{marginLeft: 20}} />
+            <Icon size={25} style={styles.seachIcon} name="search" />
           </Item>
-          <Item style={{borderWidth:0}}>
-            <FlatList style={{borderWidth:0}}
+          <Button transparent>
+            <Text>Search</Text>
+          </Button>
+          </Header>
+        <Content contentContainerStyle={styles.container}>
+        <SafeAreaView>
+            <FlatList
             data={this.state.entries} 
             renderItem={({ item }) => this.allPage(item)}
             keyExtractor={item => item.id}
             >
             </FlatList>
-          </Item>
+        </SafeAreaView>
         </Content>
         
       </Container>
@@ -99,7 +104,29 @@ export default class My_favourite_screen extends Component{
 const styles = StyleSheet.create({
   container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#eaeaea',
       justifyContent: 'center'
   },
+  headercontainer: {
+    backgroundColor: '#673ab7',
+  },
+  favoriteitem:{
+    height:100,
+    marginTop: 5,
+    marginRight : 15,
+    backgroundColor : 'white',
+  },
+  image : {
+    width: 100,
+    height: 100,
+    resizeMode: 'contain',
+  },
+  title:{
+    fontSize:15
+  },
+  favoritetext:{
+    fontSize:10, 
+    marginTop:10
+  }
+
 });

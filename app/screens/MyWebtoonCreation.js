@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
 import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList,TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import SafeAreaView from 'react-native-safe-area-view';
 
 
 export default class My_webtoon_creation extends Component{
@@ -38,11 +39,13 @@ export default class My_webtoon_creation extends Component{
   
   allPage(image, index) {
     return (
-      <ListItem style={{height:100,borderWidth:0}}>
-        <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
+      <ListItem style={styles.favoriteitem}>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})}>
+        <Image source={{uri : image.image}} style={styles.image}></Image>
+        </TouchableOpacity>
         <Body>
-        <Text style={{fontSize:20}}>{image.title}</Text>
-        <Text style={{fontSize:10, marginTop:10}}>{image.episodes}</Text>
+        <Text style={styles.title}>{image.title}</Text>
+        <Text style={styles.favoritetext}>{image.favorite}</Text>
         </Body>
       </ListItem>
     );
@@ -52,17 +55,15 @@ export default class My_webtoon_creation extends Component{
     
     return (
       <Container>
-        <Content>
-          <Item style={{borderWidth:0}}>
-         
-            <FlatList style={{borderWidth:0}}
+        <Content contentContainerStyle={styles.container}>
+          <SafeAreaView>
+            <FlatList 
             data={this.state.entries} 
             renderItem={({ item }) => this.allPage(item)}
             keyExtractor={item => item.id}
             >
             </FlatList>
-            
-          </Item>
+          </SafeAreaView>
          
         </Content>
         <TouchableOpacity 
@@ -85,8 +86,7 @@ export default class My_webtoon_creation extends Component{
 const styles = StyleSheet.create({
   container: {
       flex: 1,
-      backgroundColor: '#fff',
-      justifyContent: 'center'
+      backgroundColor: '#fafafa',
   },
   TouchableOpacityStyle: {
     position: 'absolute',
@@ -101,6 +101,24 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     width: 50,
     height: 50,
-    //backgroundColor:'black'
+    
   },
+  favoriteitem:{
+    height:100,
+    marginTop: 5,
+    marginRight : 15,
+    backgroundColor : 'white',
+  },
+  image : {
+    width: 100,
+    height: 100,
+    resizeMode: 'contain',
+  },
+  title:{
+    fontSize:15
+  },
+  favoritetext:{
+    fontSize:10, 
+    marginTop:10
+  }
 });

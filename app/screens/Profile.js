@@ -26,22 +26,22 @@ export default class Profile extends Component{
     return (
       <Container>
         <Content>
-          <Item style={{borderWidth:0, justifyContent:"center"}}>
-              <Image style={{width: 300, height: 300, borderRadius: 400/ 2}}  source={{uri : 'https://cdn3.iconfinder.com/data/icons/social-messaging-productivity-6/128/profile-female-circle2-512.png'}}></Image>
-          </Item>
-          <Item style={{borderWidth:2,height:50}}>
+          <View style={styles.photoiconcontainer}>
+              <Image style={styles.image}  source={{uri : 'https://cdn3.iconfinder.com/data/icons/social-messaging-productivity-6/128/profile-female-circle2-512.png'}}></Image>
+          </View>
+          <View style={styles.createWT}>
             <TouchableOpacity style={{width:Dimensions.get('window').width}} onPress={()=>this.props.navigation.navigate("web_creation")}>
-                <Item>
-                <Text style={{marginLeft:20}}>Create WebToon</Text>
+                <Item style={{borderColor: 'white'}}>
+                <Text style={styles.menuText}>Create WebToon</Text> 
                 <Right>
-                <Icon name="angle-right" size={30} style={{marginRight:20}}/>
+                <Icon name="angle-right" size={30} style={styles.createcomicicon}/>
                 </Right>
                 </Item>
             </TouchableOpacity>  
-          </Item>
-          <Item style={{borderWidth:2,height:50}}>
+          </View>
+          <Item style={styles.createWT}>
             <TouchableOpacity style={{width:Dimensions.get('window').width}} onPress={() => alert('LogOut')}> 
-            <Text style={{marginLeft:20}}>Log Out</Text>
+            <Text style={styles.menuText}>Log Out</Text>
             </TouchableOpacity> 
           </Item>
         </Content>
@@ -57,4 +57,29 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       justifyContent: 'center'
   },
+  photoiconcontainer:{
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor: '#673ab7',
+    borderBottomWidth: 2,
+    borderColor:'black'
+  },
+  image:{
+    width: 300, 
+    height: 300, 
+    borderRadius: 400/ 2,
+    backgroundColor:'white'
+  },
+  createcomicicon : {
+    marginRight:25,
+    marginTop : 20
+  },
+  createWT :{
+    height:50,
+    borderColor: 'white'
+  },
+  menuText :{
+    marginLeft :20,
+    marginTop: 20
+  }
 });
