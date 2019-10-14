@@ -5,8 +5,6 @@ require('express-group-routes')
 const app = express()
 const port = 5000
 
-
-
 //controllers
 const AuthController = require('./controllers/Auth')
 const ToonsController = require('./controllers/toons')

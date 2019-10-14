@@ -13,6 +13,7 @@ import {createStackNavigator} from 'react-navigation-stack'
 import {StyleSheet,Image,TouchableOpacity,View,TextInput,TouchableHighlight,Dimensions} from 'react-native'
 import ImageExample from '../assets/logo'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import axios from 'axios';
 
 
 
