@@ -8,6 +8,8 @@ const port = 5000
 //controllers
 const AuthController = require('./controllers/Auth')
 const ToonsController = require('./controllers/toons')
+const EpisodeController = require('./controllers/episodes')
+const PagesController = require('./controllers/pages')
 app.use(bodyParser.json())
 
 
@@ -23,8 +25,11 @@ app.group("/api/v1", (router) => {
     router.post('/toon', authenticated,ToonsController.store)    
     router.patch('/toon/:id', authenticated,ToonsController.update)    
     router.delete('/toon/:id', authenticated,ToonsController.delete)
-
     //another APIs goes here
+    //episode API
+    router.get('/toon/:toonID/episodes', EpisodeController.index)    
+    //pages API
+    router.get('/toon/:toonID/episode/:epsID', PagesController.index)
 })
 
 
