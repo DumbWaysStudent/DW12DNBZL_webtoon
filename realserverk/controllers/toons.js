@@ -69,19 +69,27 @@ exports.store = (req, res) => {
 }
 
 exports.update = (req, res) => {
+    const data ={
+        tittle : req.body.title,
+        genre : req.body.genre,
+        isFavorite : false,
+        image : req.body.image
+    }
     Toons.update(
-        req.body,
-        {where: {id: req.params.id}}
+        data,
+        {where: {id: req.params.webtoonid,
+                created_By:req.params.user_id}}
     ).then(toon=> {
         res.send({
             message: "success",
-            toon
+            data
         })
     })
 }
 
 exports.delete = (req, res) => {
-    Toons.destroy({where: {id: req.params.id}}).then(toon=> {
+    Toons.destroy({where: {id: req.params.webtoonid,
+        created_By:req.params.user_id}}).then(toon=> {
         res.send({
             message: "success",
             toon

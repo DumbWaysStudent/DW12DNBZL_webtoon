@@ -35,6 +35,11 @@ app.group("/api/v1", (router) => {
     router.get('/user/:user_id/webtoons', ToonsController.index)
     //create my webtoon webtoon implementation
     router.post('/user/:user_id/webtoon', ToonsController.store)
+    //update detail my webtoon
+    router.put('/user/:user_id/webtoon/:webtoonid', ToonsController.update)
+    //delete webtoon based on user id and webtoon id
+    router.delete('/user/:user_id/webtoon/:webtoonid', ToonsController.delete)
+    //get episodes based on weebtoon id 
     router.get('/user/:user_id/webtoon/:webtoonid/episodes', EpisodeController.index)
     //
 })
