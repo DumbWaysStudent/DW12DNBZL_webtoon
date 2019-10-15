@@ -2,14 +2,29 @@ const models = require('../models')
 const Toons = models.toons
 const User = models.user
 
+
 exports.index = (req, res) => {
+    let query
+    if(req.query.title){
+        query = Toons.findAll({
+            where : {
+                tittle : req.query.title 
+            },
+            include: [{
+                model: User,
+                as: "createdBy"
+            }]
+        })
+    }else{
     Toons.findAll({
         include: [{
             model: User,
             as: "createdBy"
         }]
-    }).then(toon=>res.send(toon))
+    })}
+    query.then(toon=>res.send(toon))
 }
+
 
 exports.show = (req, res) => {
     Toons.findOne({id: req.params.id}).then(toon=> res.send(toon))
