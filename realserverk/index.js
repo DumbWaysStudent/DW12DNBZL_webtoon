@@ -41,7 +41,10 @@ app.group("/api/v1", (router) => {
     router.delete('/user/:user_id/webtoon/:webtoonid', ToonsController.delete)
     //get episodes based on weebtoon id 
     router.get('/user/:user_id/webtoon/:webtoonid/episodes', EpisodeController.index)
-    //
+    //create my episodes implementation
+    router.post('/user/:user_id/webtoon/:webtoonid/episodes', EpisodeController.store)
+    //get all image based on created episodes
+    router.get('/user/:user_id/webtoon/:webtoonid/episodes/:episodeid/images', PagesController.index)
 })
 
 

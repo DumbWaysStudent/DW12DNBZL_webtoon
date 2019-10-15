@@ -38,3 +38,16 @@ exports.index = (req, res) => {
     query.then(toons=>res.send(toons))
 }
 
+exports.store = (req, res) => {
+    const data ={
+        title : req.body.title,
+        image :req.body.image,
+        toons_id : req.params.webtoonid
+    }
+    Episodes.create(data).then(toon=> {
+        res.send({
+            message: "success",
+            toon
+        })
+    })
+}

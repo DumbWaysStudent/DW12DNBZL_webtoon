@@ -5,7 +5,26 @@ const Toons = models.toons
 
 
 exports.index = (req, res) => {
-    Pages.findAll({
+    let query
+    if ((req.params.user_id)&&(req.params.webtoonid)&&(req.params.episodeid)){
+        query = Pages.findAll({
+            where : {
+                episodes_id : req.params.episodeid
+            },
+            include: [{
+                model: Episodes,
+                as: "episodesid",
+                where : {
+                    toons_id : req.params.webtoonid
+                },
+                include : [{
+                    model: Toons,
+                    as: "toonsid",
+                }]
+            }]
+        })
+    }else{
+    query = Pages.findAll({
         where : {
             episodes_id : req.params.epsID
         },
@@ -20,6 +39,9 @@ exports.index = (req, res) => {
                 as: "toonsid"
             }]
         }]
-    }).then(pages=>res.send(pages))
+    })
+    }
+    //console.log(req.params.user_id,req.params.webtoonid,req.params.episodeid)
+    query.then(pages=>res.send(pages))
 }
 
