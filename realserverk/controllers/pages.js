@@ -66,3 +66,17 @@ exports.update = (req, res) => {
         })
     })
 }
+
+exports.store = (req, res) => {
+    const storedata ={
+        episodes_id : req.params.episodeid,
+        image :req.body.image,
+        page : req.body.page
+    }
+    Pages.create(storedata).then(toon=> {
+        res.send({
+            message: "success",
+            toon
+        })
+    })
+}
