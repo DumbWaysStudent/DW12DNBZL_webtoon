@@ -28,31 +28,31 @@ app.group("/api/v1", (router) => {
     router.delete('/webtoon/:id', authenticated,ToonsController.delete)
     //another APIs goes here
     //episode API
-    router.get('/webtoon/:toonID/episodes', EpisodeController.index)    
+    router.get('/webtoon/:toonID/episodes', authenticated,EpisodeController.index)    
     //pages API
-    router.get('/webtoon/:toonID/episode/:epsID', PagesController.index)
+    router.get('/webtoon/:toonID/episode/:epsID', authenticated,PagesController.index)
     //my webtoon API
-    router.get('/user/:user_id/webtoons', ToonsController.index)
+    router.get('/user/:user_id/webtoons', authenticated,ToonsController.index)
     //create my webtoon webtoon implementation
-    router.post('/user/:user_id/webtoon', ToonsController.store)
+    router.post('/user/:user_id/webtoon', authenticated,ToonsController.store)
     //update detail my webtoon
-    router.put('/user/:user_id/webtoon/:webtoonid', ToonsController.update)
+    router.put('/user/:user_id/webtoon/:webtoonid', authenticated,ToonsController.update)
     //delete webtoon based on user id and webtoon id
-    router.delete('/user/:user_id/webtoon/:webtoonid', ToonsController.delete)
+    router.delete('/user/:user_id/webtoon/:webtoonid', authenticated,ToonsController.delete)
     //get episodes based on weebtoon id 
-    router.get('/user/:user_id/webtoon/:webtoonid/episodes', EpisodeController.index)
+    router.get('/user/:user_id/webtoon/:webtoonid/episodes', authenticated,EpisodeController.index)
     //create my episodes implementation
-    router.post('/user/:user_id/webtoon/:webtoonid/episodes', EpisodeController.store)
+    router.post('/user/:user_id/webtoon/:webtoonid/episodes', authenticated,EpisodeController.store)
     //get all image based on created episodes
-    router.get('/user/:user_id/webtoon/:webtoonid/episodes/:episodeid/images', PagesController.index)
+    router.get('/user/:user_id/webtoon/:webtoonid/episodes/:episodeid/images', authenticated,PagesController.index)
     //update my episodes
-    router.put('/user/:user_id/webtoon/:webtoonid/episodes/:episodeid', PagesController.update)
+    router.put('/user/:user_id/webtoon/:webtoonid/episodes/:episodeid', authenticated,PagesController.update)
     //create image for episode implementation
-    router.post('/user/:user_id/webtoon/:webtoonid/episode/:episodeid/image', PagesController.store)
+    router.post('/user/:user_id/webtoon/:webtoonid/episode/:episodeid/image', authenticated,PagesController.store)
     //delete episodes
-    router.delete('/user/:user_id/webtoon/:webtoonid/episodes/:episodeid', EpisodeController.delete)
+    router.delete('/user/:user_id/webtoon/:webtoonid/episodes/:episodeid', authenticated,EpisodeController.delete)
     //delete pages
-    router.delete('/user/:user_id/webtoon/:webtoonid/episodes/:episodeid/image/:imageid', PagesController.delete)
+    router.delete('/user/:user_id/webtoon/:webtoonid/episodes/:episodeid/image/:imageid', authenticated,PagesController.delete)
 })
 
 
