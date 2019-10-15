@@ -45,3 +45,24 @@ exports.index = (req, res) => {
     query.then(pages=>res.send(pages))
 }
 
+exports.update = (req, res) => {
+    let updatequery
+    const data ={
+        toons_id : req.params.webtoonid,
+        title : req.body.title,
+        image : req.body.image
+    }
+    updatequery = Episodes.update(
+        data,
+        {where: {toons_id: req.params.webtoonid,
+                id:req.params.episodeid}}
+        )
+
+    updatequery.then(toon=> {
+        res.send({
+            message: "success",
+            data,
+            toon
+        })
+    })
+}

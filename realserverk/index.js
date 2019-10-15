@@ -45,6 +45,8 @@ app.group("/api/v1", (router) => {
     router.post('/user/:user_id/webtoon/:webtoonid/episodes', EpisodeController.store)
     //get all image based on created episodes
     router.get('/user/:user_id/webtoon/:webtoonid/episodes/:episodeid/images', PagesController.index)
+    //update my episodes
+    router.put('/user/:user_id/webtoon/:webtoonid/episodes/:episodeid', PagesController.update)
 })
 
 
