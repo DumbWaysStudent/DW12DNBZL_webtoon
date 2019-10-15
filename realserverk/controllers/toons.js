@@ -91,7 +91,7 @@ exports.delete = (req, res) => {
     Toons.destroy({where: {id: req.params.webtoonid,
         created_By:req.params.user_id}}).then(toon=> {
         res.send({
-            message: "success",
+            message: "successss",
             toon
         })
     })
