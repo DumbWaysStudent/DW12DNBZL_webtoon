@@ -51,6 +51,8 @@ app.group("/api/v1", (router) => {
     router.post('/user/:user_id/webtoon/:webtoonid/episode/:episodeid/image', PagesController.store)
     //delete episodes
     router.delete('/user/:user_id/webtoon/:webtoonid/episodes/:episodeid', EpisodeController.delete)
+    //delete pages
+    router.delete('/user/:user_id/webtoon/:webtoonid/episodes/:episodeid/image/:imageid', PagesController.delete)
 })
 
 

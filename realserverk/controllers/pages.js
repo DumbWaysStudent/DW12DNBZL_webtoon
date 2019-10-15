@@ -80,3 +80,15 @@ exports.store = (req, res) => {
         })
     })
 }
+
+exports.delete = (req, res) => {
+    Pages.destroy({where: {
+        episodes_id: req.params.episodeid,
+        id : req.params.imageid}
+        }).then(toon=> {
+        res.send({
+            message: "successss",
+            toon
+        })
+    })
+}
