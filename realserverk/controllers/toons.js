@@ -15,7 +15,18 @@ exports.index = (req, res) => {
                 as: "createdBy"
             }]
         })
-    }else{
+    }else if (req.params.user_id){
+        query = Toons.findAll({
+            where : {
+                created_By : req.params.user_id 
+            },
+            include: [{
+                model: User,
+                as: "createdBy"
+            }]
+        })
+    }
+    else{
     Toons.findAll({
         include: [{
             model: User,
