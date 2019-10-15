@@ -51,3 +51,15 @@ exports.store = (req, res) => {
         })
     })
 }
+
+exports.delete = (req, res) => {
+    Episodes.destroy({where: {
+        toons_id: req.params.webtoonid,
+        id : req.params.episodeid}
+        }).then(toon=> {
+        res.send({
+            message: "successss",
+            toon
+        })
+    })
+}
