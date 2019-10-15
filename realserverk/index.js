@@ -18,6 +18,7 @@ const { authenticated } = require('./middleware')
 app.group("/api/v1", (router) => {
 
     router.post('/login', AuthController.login)
+    router.post('/register', AuthController.register)
 
     //todos API
     router.get('/toons', ToonsController.index)    
