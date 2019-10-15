@@ -5,6 +5,17 @@ const User = models.user
 
 exports.index = (req, res) => {
     let query
+    if (req.query.fav = true){
+        query = Toons.findAll({
+            where : {
+                isFavorite : req.query.fav 
+            },
+            include: [{
+                model: User,
+                as: "createdBy"
+            }]
+        })
+    }else
     if(req.query.title){
         query = Toons.findAll({
             where : {
@@ -27,7 +38,7 @@ exports.index = (req, res) => {
         })
     }
     else{
-    Toons.findAll({
+    query = Toons.findAll({
         include: [{
             model: User,
             as: "createdBy"
@@ -42,7 +53,14 @@ exports.show = (req, res) => {
 }
 
 exports.store = (req, res) => {
-    Toons.create(req.body).then(toon=> {
+    const data ={
+        tittle : req.body.title,
+        genre : req.body.genre,
+        isFavorite : false,
+        image :req.body.image,
+        created_By : req.params.user_id
+    }
+    Toons.create(data).then(toon=> {
         res.send({
             message: "success",
             toon

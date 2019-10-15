@@ -1,10 +1,30 @@
 const models = require('../models')
 const Toons = models.toons
 const Episodes = models.episodes
+const User = models.user
 
 
 exports.index = (req, res) => {
-    Episodes.findAll({
+    let query
+    if ((req.params.user_id)&&(req.params.webtoonid)){
+        query = Episodes.findAll({
+            where : {
+                toons_id : req.params.webtoonid
+            },
+            include: [{
+                model: Toons,
+                as: "toonsid",
+                where : {
+                    created_By : req.params.user_id
+                },
+                include : [{                   
+                model: User,
+                as: "createdBy"
+                }]
+            }]
+        })
+    }else{
+    query = Episodes.findAll({
         where : {
             toons_id : req.params.toonID
         },
@@ -12,6 +32,9 @@ exports.index = (req, res) => {
             model: Toons,
             as: "toonsid"
         }]
-    }).then(toons=>res.send(toons))
+    })
+}
+    console.log(req.params.user_id, req.params.webtoonid)
+    query.then(toons=>res.send(toons))
 }
 
