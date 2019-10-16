@@ -15,21 +15,23 @@ import axios from 'axios';
 
 
 
-
-export default class Login_screen extends Component{
+export default class Register extends Component{
   constructor(props){
+    this.registerUser = this.registerUser.bind(this)
     super(props)
     this.state={
       eye : true,
-      loading : false,
       string : '',
       allow : true,
       pass: '',
       button_status : true
     }
-    this.loginUser = this.loginUser.bind(this)
   }
 
+  registerUser(){
+      const {email,password,password_confirmation} = this.state
+      
+  }
   
   validate = () => {
     if ((this.state.string !== '') && (this.state.pass !== '')){  

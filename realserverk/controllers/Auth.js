@@ -1,14 +1,15 @@
   
 const jwt = require('jsonwebtoken')
-
+const bcrypt = require('bcrypt')
+const salt = bcrypt.genSaltSync(10)
 const models = require('../models')
 const User = models.user
 
 exports.login = (req, res)=>{    
     //check if email and pass match in db tbl user
     const email = req.body.email
-    const password = req.body.password //use encryption in real world case!
-
+    const password = bcrypt.hashSync(req.body.password, salt) //use encryption in real world case!
+    console.log(password)
     User.findOne({where: {email, password}}).then(user=>{
         if(user){
             const token = jwt.sign({ userId: user.id }, 'my-secret-key')
@@ -29,7 +30,7 @@ exports.login = (req, res)=>{
 exports.register = (req, res)=>{    
     //check if email and pass match in db tbl user
     const email = req.body.email
-    const password = req.body.password
+    const password = bcrypt.hashSync(req.body.password,salt)
     const name = req.body.name //use encryption in real world case!
 
     User.findOne({where: {email: email}}).then(user=>{

@@ -12,6 +12,7 @@ import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList,SafeAreaView} from 
 import Carousel from 'react-native-banner-carousel';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import axios from 'axios'
 
 
 
@@ -21,37 +22,18 @@ export default class Foryouscreen extends Component{
     this.state={
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 200,
-      entries: [{
-        title: 'Setan Emosi',
-        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109179-tatang-s.jpg'
-      }, {
-        title: 'Hantu Pohon Sawo',
-        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109180-tatang-s.jpg'
-      }, {
-        title: 'Yong Samson',
-        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109181-tatang-s.jpg'
-      },{
-        title: 'Ririwa',
-        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109182-tatang-s.jpg'
-      }, {
-        title: 'Babi Siluman',
-        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109183-tatang-s.jpg'
-      }, {
-        title: 'Hantu',
-        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109184-tatang-s.jpg'
-      },{
-        title: 'Ilmu Halimuan',
-        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109185-tatang-s.jpg'
-      }, {
-        title: 'Penakluk Iblis',
-        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109186-tatang-s.jpg'
-      }, {
-        title: 'Takut Ni,Ye',
-        image: 'https://cdn.brilio.net/news/2015/11/30/29400/109187-tatang-s.jpg'
-      }]
+      entries: []
     }
   }
   
+  componentDidMount(){
+    axios.get('http://192.168.1.11:5000/api/v1/webtoons')
+    .then(res => {
+      const entries = res.data
+      this.setState({entries})
+      console.log(entries)
+    })
+  }
   renderPage(image, index) {
     return (
         <View key={index}>
@@ -67,7 +49,7 @@ export default class Foryouscreen extends Component{
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})}>
           <Image source={{uri : image.image}} style={styles.favoriteImage}></Image>
           </TouchableOpacity>
-        <Text style={styles.favoriteText}>{image.title}</Text>
+        <Text style={styles.favoriteText}>{image.tittle}</Text>
       </View>
     );
   }
@@ -79,7 +61,7 @@ export default class Foryouscreen extends Component{
         <Image source={{uri : image.image}} style={styles.image}></Image>
         </TouchableOpacity>
         <Body>
-        <Text style={styles.tittleall}>{image.title}</Text>
+        <Text style={styles.tittleall}>{image.tittle}</Text>
         <Button style={styles.favoritebutton}><Text style={{fontSize:7}}>+ Favorite</Text>
         </Button>
         </Body>

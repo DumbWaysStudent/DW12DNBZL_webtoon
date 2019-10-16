@@ -10,6 +10,7 @@ const AuthController = require('./controllers/Auth')
 const ToonsController = require('./controllers/toons')
 const EpisodeController = require('./controllers/episodes')
 const PagesController = require('./controllers/pages')
+
 app.use(bodyParser.json())
 
 
