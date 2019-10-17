@@ -13,7 +13,6 @@ import Carousel from 'react-native-banner-carousel';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from 'axios'
-import AsyncStorage from '@react-native-community/async-storage'
 
 
 

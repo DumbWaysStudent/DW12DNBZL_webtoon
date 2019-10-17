@@ -9,7 +9,10 @@
 import React, { Component } from 'react';
 import { Icon,Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
 import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList,TouchableOpacity,SafeAreaView} from 'react-native';
-import Carousel from 'react-native-banner-carousel';
+import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
+
+
 
 
 export default class My_favourite_screen extends Component{
@@ -18,46 +21,44 @@ export default class My_favourite_screen extends Component{
     this.state={
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
-      entries: [{
-        title: 'Young MOM',
-        favorite: '100 + favorite',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Old MOM',
-        favorite: '100 + favorite',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Baby MOM',
-        favorite: '100 + favorite',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      },{
-        title: 'Teen MOM',
-        favorite: '100 + favorite',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Very Old MOM',
-        favorite: '100 + favorite',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Really Old Young MOM',
-        favorite: '100 + favorite',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      },{
-        title: 'Freaking Olf MOM',
-        favorite: '100 + favorite',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'MOM?',
-        favorite: '100 + favorasdite',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Are You Kidding Me MOM?',
-        favorite: '100 + favorite',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }]
+      entries: []
     }
   }
   
+  async retrieveSessionToken() {
+    try {
+      const tokening = await AsyncStorage.getItem('userToken');
+      if (tokening !== null) {
+        console.log("Session token",this.state.token)
+      }else{
+        console.log("Youre not Logged in Yet");
+        alert('must login first')
+        this.props.navigation.navigate('Login')
+      }
+     }catch (e) {
+       console.log(error)
+     }
+  }
+  
+  
+  async componentDidMount(){
+    
+    this.retrieveSessionToken()
+    //retrieve id toon
+    console.log('hasil get param = ',this.state.id)
+    const tokening = await AsyncStorage.getItem('userToken');
+    await axios.get(`http://192.168.1.11:5000/api/v1/webtoon/${this.state.id}/episodes`,{
+      headers: {
+        'Authorization': 'Bearer '+ tokening
+      }
+    })
+    .then(res => {
+      const entries = res.data
+      this.setState({entries})
+      console.log(entries)
+    })
+  }
+
   allPage(image, index) {
     return (
       <ListItem style={styles.favoriteitem}>

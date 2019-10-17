@@ -6,11 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     isFavorite: DataTypes.BOOLEAN,
     image: {
       type: DataTypes.STRING,
-      //Set custom getter for book image using URL
-      get(){
-          const image = this.getDataValue('image');
-          return "/img/"+image;
-      }
+      
     },
     created_By: DataTypes.INTEGER
   }, {});

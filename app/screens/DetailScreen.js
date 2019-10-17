@@ -22,6 +22,7 @@ export default class Detail_screen extends Component{
       BannerHeight: 260,
       token : ' ',
       id : props.navigation.state.params.title.id,
+      image : props.navigation.state.params.title.image,
       entries: [],
       
     }
@@ -31,8 +32,7 @@ export default class Detail_screen extends Component{
     try {
       const tokening = await AsyncStorage.getItem('userToken');
       if (tokening !== null) {
-        console.log("Session token",tokening);
-        this.setState({token : tokening})
+        console.log("Session token",this.state.token)
       }else{
         console.log("Youre not Logged in Yet");
         alert('must login first')
@@ -48,12 +48,11 @@ export default class Detail_screen extends Component{
     
     this.retrieveSessionToken()
     //retrieve id toon
-    const idtoon = this.state.id
-    console.log('hasil get param = ',idtoon)
-    console.log('token = ',this.state.token)
-    await axios.get(`http://192.168.1.11:5000/api/v1/webtoon/2/episodes`,{
+    console.log('hasil get param = ',this.state.id)
+    const tokening = await AsyncStorage.getItem('userToken');
+    await axios.get(`http://192.168.1.11:5000/api/v1/webtoon/${this.state.id}/episodes`,{
       headers: {
-        'Authorization': ' Bearer'+ this.state.token
+        'Authorization': 'Bearer '+ tokening
       }
     })
     .then(res => {
@@ -63,15 +62,15 @@ export default class Detail_screen extends Component{
     })
   }
 
-  allPage(image, index) {
+  allPage(item, index) {
     return (
       <ListItem style={{height:100,borderWidth:0}}>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_episode", {title :image})}>
-        <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_episode", {title :item,item : this.state.id})}>
+        <Image source={{uri : item.image}} style={{width: 66, height: 58}}></Image>
         </TouchableOpacity>
         <Body>
-        <Text style={{fontSize:20}}>{image.title}</Text>
-        <Text style={{fontSize:10, marginTop:10}}>{image.date}</Text>
+        <Text style={{fontSize:20}}>{item.title}</Text>
+        <Text style={{fontSize:10, marginTop:10}}>{item.createdAt}</Text>
         </Body>
       </ListItem>
     );
@@ -84,7 +83,7 @@ export default class Detail_screen extends Component{
         <Content>
           <Item>
           <View style={styles.container}>        
-            <Image style={{ width: this.state.BannerWidth, height: this.state.BannerHeight }} source={{ uri: this.state.entries.image }} />
+            <Image style={{ width: this.state.BannerWidth, height: this.state.BannerHeight }} source={{ uri: this.state.image }} />
           </View>
           </Item>
           <Item style={{borderWidth:0}}>

@@ -6,10 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     image: {
       type: DataTypes.STRING,
       //Set custom getter for book image using URL
-      get(){
-          const image = this.getDataValue('image');
-          return "/img/"+image;
-      }
+      
     },
   }, {});
   episodes.associate = function(models) {

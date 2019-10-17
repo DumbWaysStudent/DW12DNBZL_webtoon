@@ -19,16 +19,18 @@ export default class Detail_episodes extends Component{
     this.state={
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
+      id : props.navigation.state.params.title.id,
+      epid : props.navigation.state.params.item,
       entries: []
     }
   }
   
+
   async retrieveSessionToken() {
     try {
       const tokening = await AsyncStorage.getItem('userToken');
       if (tokening !== null) {
-        console.log("Session token",tokening);
-        this.setState({token : tokening})
+        console.log("Session token",this.state.token)
       }else{
         console.log("Youre not Logged in Yet");
         alert('must login first')
@@ -41,12 +43,15 @@ export default class Detail_episodes extends Component{
   
   
   async componentDidMount(){
-    console.log('varToken = ',this.state.token)
-    console.log('ini sedang dimuat')
+    
     this.retrieveSessionToken()
-    await axios.get('http://192.168.1.11:5000/api/v1/webtoon/1/episodes',{
+    //retrieve id toon
+    console.log('hasil get param = ',this.state.id)
+    console.log('hasil episodeid = ',this.state.epid)
+    const tokening = await AsyncStorage.getItem('userToken');
+    await axios.get(`http://192.168.1.11:5000/api/v1/webtoon/${this.state.epid}/episode/${this.state.id}`,{
       headers: {
-        'Authorization': ' Bearer '+ this.state.token
+        'Authorization': 'Bearer '+ tokening
       }
     })
     .then(res => {

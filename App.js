@@ -54,7 +54,7 @@ const switchContainer = createSwitchNavigator({
           Detail_screen : {
             screen : Detail_screen,
             navigationOptions: ({ navigation }) => ({
-              title: `${navigation.state.params.title.title}`,
+              title: `${navigation.state.params.title.tittle}`,
               headerRight: <Icon name="share-alt" size={30} onPress={() => onShare()}></Icon>
             }), 
           },
