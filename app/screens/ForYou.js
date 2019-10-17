@@ -38,7 +38,7 @@ export default class Foryouscreen extends Component{
   renderPage(image, index) {
     return (
         <View key={index}>
-          <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image},{satu : 1})}>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})}>
             <Image style={{ width: this.state.BannerWidth, height: this.state.BannerHeight }} source={{ uri: image.image }} />
             </TouchableOpacity>
         </View>

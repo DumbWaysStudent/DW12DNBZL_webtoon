@@ -9,9 +9,9 @@
 import React, { Component } from 'react';
 import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
 import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList,Share} from 'react-native';
-import Carousel from 'react-native-banner-carousel';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
 
 
 export default class Detail_screen extends Component{
@@ -20,8 +20,10 @@ export default class Detail_screen extends Component{
     this.state={
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
-      id : props.navigation.getParam(title),
-      entries: []
+      token : ' ',
+      id : props.navigation.state.params.title.id,
+      entries: [],
+      
     }
   }
   
@@ -43,15 +45,15 @@ export default class Detail_screen extends Component{
   
   
   async componentDidMount(){
-    console.log('varToken = ',this.state.token)
-    console.log('ini sedang dimuat')
+    
     this.retrieveSessionToken()
     //retrieve id toon
     const idtoon = this.state.id
     console.log('hasil get param = ',idtoon)
-    await axios.get('http://192.168.1.11:5000/api/v1/webtoon/1/episodes',{
+    console.log('token = ',this.state.token)
+    await axios.get(`http://192.168.1.11:5000/api/v1/webtoon/2/episodes`,{
       headers: {
-        'Authorization': ' Bearer '+ this.state.token
+        'Authorization': ' Bearer'+ this.state.token
       }
     })
     .then(res => {
