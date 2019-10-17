@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     width: 50,
     height: 50,
+    marginBottom : 30
     
   },
   favoriteitem:{

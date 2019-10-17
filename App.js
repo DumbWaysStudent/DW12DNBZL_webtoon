@@ -152,22 +152,46 @@ const switchContainer = createSwitchNavigator({
           screen : create_webtoon_episode,
           navigationOptions:{
             title: 'Create Webtoon Episode',
-            headerRight : <Icon size={30} color='yellow' name="check"></Icon>
+            headerTitleStyle :{
+              fontWeight : 'bold',
+              color : 'white'
+            },
+            headerStyle:{
+              backgroundColor : '#673ab7'
+            },
+            headerRight :<Icon name="check" size={30} color='#ee532f' style={{marginRight : 10}}></Icon>
+          
           }
         },
         'edit_create_webtoon' :{
           screen : edit_create_webtoon,
           navigationOptions:{
             title: 'Edit Your Webtoon',
-            headerRight : <Icon size={30} color='yellow' name="check"></Icon>
+            headerTitleStyle :{
+              fontWeight : 'bold',
+              color : 'white'
+            },
+            headerStyle:{
+              backgroundColor : '#673ab7'
+            },
+            headerRight :<Icon name="check" size={30} color='#ee532f' style={{marginRight : 10}}></Icon>
           }
+          
         },
         'edit_create_webtoon_episode' :{
           screen : edit_create_webtoon_episode,
           navigationOptions:{
             title: 'Edit Your Webtoon Episode',
-            headerRight : <Icon size={30} color='yellow' name="check"></Icon>
+            headerTitleStyle :{
+              fontWeight : 'bold',
+              color : 'white'
+            },
+            headerStyle:{
+              backgroundColor : '#673ab7'
+            },
+            headerRight :<Icon name="check" size={30} color='#ee532f' style={{marginRight : 10}}></Icon>
           }
+          
         }
         
     }),navigationOptions:{

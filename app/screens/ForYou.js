@@ -43,7 +43,7 @@ export default class Foryouscreen extends Component{
         </View>
     );
 }
-  favoritePage(image, index) {
+  favoritePage(image) {
     return (
       <View style={styles.favoriteContainer}>
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})}>
@@ -53,7 +53,7 @@ export default class Foryouscreen extends Component{
       </View>
     );
   }
-  allPage(image, index) {
+  allPage(image) {
     return (
       
       <ListItem style={styles.listItemContainer}>
@@ -62,8 +62,8 @@ export default class Foryouscreen extends Component{
         </TouchableOpacity>
         <Body>
         <Text style={styles.tittleall}>{image.tittle}</Text>
-        <TouchableHighlight style={styles.favoritebutton} disabled={false}><Text style={{fontSize:7}} onPress={()=> alert('favpress')}>+ Favorite</Text>
-        </TouchableHighlight>
+        <Button success style={styles.favoritebutton}><Text style={{fontSize:7}} onPress={()=> alert('favpress')}>+ Favorite</Text>
+        </Button>
         </Body>
       </ListItem>
      

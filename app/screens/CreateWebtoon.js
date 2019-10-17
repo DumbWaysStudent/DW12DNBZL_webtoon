@@ -133,13 +133,6 @@ const styles = StyleSheet.create({
     marginLeft : 20,
     marginTop : 10
   },
-  button : {
-    borderWidth: 2,
-    borderColor: 'black',
-    width : 310 , 
-    justifyContent: 'center',
-    backgroundColor: 'white'
-  },
   listItemContainer:{
     width: Dimensions.get('window').width,
     marginTop: 5,
