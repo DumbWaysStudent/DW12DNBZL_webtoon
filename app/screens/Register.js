@@ -17,22 +17,48 @@ import axios from 'axios';
 
 export default class Register extends Component{
   constructor(props){
-    this.registerUser = this.registerUser.bind(this)
     super(props)
     this.state={
       eye : true,
       string : '',
       allow : true,
       pass: '',
+      name: '',
       button_status : true
     }
   }
 
-  registerUser(){
-      const {email,password,password_confirmation} = this.state
-      
+  register = async () => {
+    try{
+      let tempUser = {
+        email : this.state.string,
+        password : this.state.pass,
+        name : this.state.name
+      }
+      await axios.post(`http://192.168.1.11:5000/api/v1/register`,tempUser)
+      .then((response) => {
+        if (typeof response.data !== 'undefined'){
+          Toast.show({
+            text: "Register success, please login",
+            buttonText: "Okay",
+            duration: 3000,
+            });
+          alert('user registered')
+          this.props.navigation.navigate('Login')
+        }else{
+          alert('Registration Failed check your network connection')
+        }
+      })
+      .catch((error)=>{
+        alert(error)
+      });
+    }
+    catch (e){
+      console.log(e)
+    }
   }
-  
+
+
   validate = () => {
     if ((this.state.string !== '') && (this.state.pass !== '')){  
       if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.string)) {
@@ -42,8 +68,7 @@ export default class Register extends Component{
         buttonText: "Okay",
         duration: 3000,
         });
-      this.props.navigation.navigate('Fyscreen'); 
-      
+      this.register()
       }else{
       this.state.allow = false;
       Toast.show({
@@ -94,9 +119,16 @@ export default class Register extends Component{
                 <Icon name='eye' size={20} style={styles.Icon}></Icon>
               </TouchableOpacity>
         </View>
-        
+        <View style={styles.inputContainer}>
+          <Icon size={20} name='user' style={styles.inputIcon} > </Icon>
+          <TextInput style={styles.inputs}
+              placeholder="Name"
+              placeholderTextColor='#673ab7'
+              underlineColorAndroid='transparent'
+              onChangeText={(name) => this.setState({name: name})}/>
+        </View>
         <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.validate()}>
-          <Text style={styles.loginText}>Login</Text>
+          <Text style={styles.loginText}>Register</Text>
         </TouchableHighlight>
         
          </View>

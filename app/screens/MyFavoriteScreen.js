@@ -7,8 +7,8 @@
  */
 
 import React, { Component } from 'react';
-import { Icon,Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
-import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList,TouchableOpacity,SafeAreaView} from 'react-native';
+import { Icon,Container,Header,Text, Body, Content, Item, Input, Button,ListItem} from 'native-base'
+import {Image,StyleSheet,Dimensions,FlatList,TouchableOpacity,SafeAreaView} from 'react-native';
 import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
 
@@ -21,6 +21,7 @@ export default class My_favourite_screen extends Component{
     this.state={
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
+      token : '',
       entries: []
     }
   }
@@ -28,8 +29,10 @@ export default class My_favourite_screen extends Component{
   async retrieveSessionToken() {
     try {
       const tokening = await AsyncStorage.getItem('userToken');
+      const id_user = await AsyncStorage.getItem('userID');
       if (tokening !== null) {
-        console.log("Session token",this.state.token)
+        console.log("Session token",tokening)
+        console.log("id_user", id_user)
       }else{
         console.log("Youre not Logged in Yet");
         alert('must login first')
@@ -45,9 +48,10 @@ export default class My_favourite_screen extends Component{
     
     this.retrieveSessionToken()
     //retrieve id toon
-    console.log('hasil get param = ',this.state.id)
     const tokening = await AsyncStorage.getItem('userToken');
-    await axios.get(`http://192.168.1.11:5000/api/v1/webtoon/${this.state.id}/episodes`,{
+    const id = await AsyncStorage.getItem('userID');
+    let new_id = JSON.parse(id)
+    await axios.get(`http://192.168.1.11:5000/api/v1/user/${new_id}`,{
       headers: {
         'Authorization': 'Bearer '+ tokening
       }

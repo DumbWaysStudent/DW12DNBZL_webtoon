@@ -16,6 +16,7 @@ import edit_create_webtoon from './app/screens/EditWebtoon'
 import edit_create_webtoon_episode from './app/screens/EditWebtoonEpisode'
 import Edit_profile from './app/screens/EditProfile'
 import My_webtoon_creation from './app/screens/MyWebtoonCreation'
+import Register from './app/screens/Register'
 
 
 
@@ -41,6 +42,7 @@ onShare = async () => {
 };
 const switchContainer = createSwitchNavigator({
   Login : Login_screen,
+  Register : Register,
   'Fyscreen': {
     screen : createBottomTabNavigator({
       'Fyscreen':{

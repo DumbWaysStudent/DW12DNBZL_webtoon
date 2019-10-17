@@ -12,12 +12,18 @@ import {Image,View,StyleSheet,Dimensions} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
+
 
 export default class Edit_profile extends Component{
   constructor(props){
     super(props)
     this.state={
-        photo: ''
+        photo: '',
+        entries : [],
+        token : '',
+        name: ''
     }
 }
   handleChoosePhoto = () =>{
@@ -31,23 +37,58 @@ export default class Edit_profile extends Component{
         }
       });
   };
+
+  async retrieveSessionToken() {
+    try {
+      const tokening = await AsyncStorage.getItem('userToken');
+      if (tokening !== null) {
+        console.log("Session token",tokening);
+        this.setState({token : tokening})
+      }else{
+        console.log("Youre not Logged in Yet");
+        alert('must login first')
+        this.props.navigation.navigate('Login')
+      }
+     }catch (e) {
+       console.log(error)
+     }
+  }
+
+  async componentDidMount(){
+    this.retrieveSessionToken()
+    const id = await AsyncStorage.getItem('userID')
+    const tokening = await AsyncStorage.getItem('userToken');
+    let new_id = JSON.parse(id)
+    console.log('id', new_id)
+    await axios.get(`http://192.168.1.11:5000/api/v1/user/${new_id}`,{
+      headers: {
+        'Authorization': 'Bearer '+ tokening
+      }
+    })
+    .then(res => {
+      const entries = res.data
+      this.setState({entries})
+      console.log(entries)
+    })
+  }
   
   render() {
-    const {photo} = this.state;
     return (
       <Container>
         <Content>
           <View style={styles.imageContainer}>
-              <Image style={styles.image}  source={{uri : photo.uri}}></Image>
+              <Image style={styles.image}  source={{uri : this.state.entries.image}}></Image>
               <TouchableOpacity onPress={this.handleChoosePhoto}>
               <Icon name="camera" size={20}></Icon>
               </TouchableOpacity>
           </View>
           
           <View style={styles.nameContainer}>
-            <Input style={styles.input} placeholder="Your Name">
+            <Input style={styles.input} placeholder={this.state.entries.name} onChangeText={(text)=>this.setState({name : text})}>
             </Input>
           </View>
+
+          
         </Content>
         
       </Container>
@@ -80,9 +121,12 @@ const styles = StyleSheet.create({
   nameContainer :{
     marginTop : 20,
     width : Dimensions.get('window').width,
-    alignItems : 'center'
+    alignItems : 'center',
+    alignContent : 'center'
   },
   input :{
     borderWidth:1,
-    width: 300}
+    width: 300,
+    alignContent: 'center'
+  }
 });

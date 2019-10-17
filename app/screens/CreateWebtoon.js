@@ -7,11 +7,11 @@
  */
 
 import React, { Component } from 'react';
-import { Icon,Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
+import { Container,Text, Body, Content,Item, Input, Button,Label, ListItem} from 'native-base'
 import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList,TouchableOpacity} from 'react-native';
-import Carousel from 'react-native-banner-carousel';
 import SafeAreaView from 'react-native-safe-area-view';
-
+import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
 
 export default class create_webtoon extends Component{
   constructor(props){
@@ -19,35 +19,47 @@ export default class create_webtoon extends Component{
     this.state={
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
-      entries: [{
-        title: 'Young MOM',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'OK MOM',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Ugly MOM',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      },{
-        title: 'Are you kidding me MOM??',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      },{
-        title: 'Ugly MOM',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      },{
-        title: 'Ugly MOM',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      },
-    ]
+      entries: []
     }
   }
   
+  async retrieveSessionToken() {
+    try {
+      const tokening = await AsyncStorage.getItem('userToken');
+      if (tokening !== null) {
+        console.log("Session token",tokening);
+        this.setState({token : tokening})
+      }else{
+        console.log("Youre not Logged in Yet");
+        alert('must login first')
+        this.props.navigation.navigate('Login')
+      }
+     }catch (e) {
+       console.log(error)
+     }
+  }
+  
+  
+  async componentDidMount(){
+    console.log('varToken = ',this.state.token)
+    console.log('ini sedang dimuat')
+    this.retrieveSessionToken()
+    const id = await AsyncStorage.getItem('userID')
+    let new_id = JSON.parse(id)
+    console.log('id', new_id)
+    await axios.get(`http://192.168.1.11:5000/api/v1/user/${new_id}/webtoons`,{
+      headers: {
+        'Authorization': ' Bearer '+ this.state.token
+      }
+    })
+    .then(res => {
+      const entries = res.data
+      this.setState({entries})
+      console.log(entries)
+    })
+  }
+
+
   allPage(image, index) {
     return (
         <ListItem style={styles.listItemContainer}>
@@ -55,8 +67,8 @@ export default class create_webtoon extends Component{
         <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
         </TouchableOpacity>
         <Body>
-        <Text style={{fontSize:20}}>{image.title}</Text>
-        <Text style={{fontSize:10}}>{image.date}</Text>
+        <Text style={{fontSize:20}}>{image.tittle}</Text>
+        <Text style={{fontSize:10}}>{image.createdAt}</Text>
         </Body>
       </ListItem>
     );
@@ -87,7 +99,6 @@ export default class create_webtoon extends Component{
             </FlatList>
          </SafeAreaView>
          </View>
-         
         </Content>
         <Item style={styles.buttonContainer}>
              <Button onPress={()=>this.props.navigation.navigate("create_webtoon_episode")} style={styles.button}>

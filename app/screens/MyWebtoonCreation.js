@@ -7,10 +7,11 @@
  */
 
 import React, { Component } from 'react';
-import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
-import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList,TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { Container,Text, Body, Content, ListItem} from 'native-base'
+import {Image,StyleSheet,Dimensions,FlatList,TouchableOpacity} from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
+import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
 
 
 export default class My_webtoon_creation extends Component{
@@ -19,24 +20,48 @@ export default class My_webtoon_creation extends Component{
     this.state={
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
-      entries: [{
-        title: 'Young MOM',
-        episodes : 50,
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Old MOM',
-        favorite: '100 + favorite',
-        episodes : 50,
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Baby MOM',
-        favorite: '100 + favorite',
-        episodes : 50,
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }]
+      entries: []
     }
   }
   
+  async retrieveSessionToken() {
+    try {
+      const tokening = await AsyncStorage.getItem('userToken');
+      if (tokening !== null) {
+        console.log("Session token",tokening);
+        this.setState({token : tokening})
+      }else{
+        console.log("Youre not Logged in Yet");
+        alert('must login first')
+        this.props.navigation.navigate('Login')
+      }
+     }catch (e) {
+       console.log(error)
+     }
+  }
+  
+  
+  async componentDidMount(){
+    console.log('varToken = ',this.state.token)
+    console.log('ini sedang dimuat')
+    this.retrieveSessionToken()
+    const id = await AsyncStorage.getItem('userID')
+    let new_id = JSON.parse(id)
+    console.log('id', new_id)
+    await axios.get(`http://192.168.1.11:5000/api/v1/user/${new_id}/webtoons`,{
+      headers: {
+        'Authorization': ' Bearer '+ this.state.token
+      }
+    })
+    .then(res => {
+      const entries = res.data
+      this.setState({entries})
+      console.log(entries)
+    })
+  }
+  
+
+
   allPage(image, index) {
     return (
       <ListItem style={styles.favoriteitem}>
@@ -44,7 +69,7 @@ export default class My_webtoon_creation extends Component{
         <Image source={{uri : image.image}} style={styles.image}></Image>
         </TouchableOpacity>
         <Body>
-        <Text style={styles.title}>{image.title}</Text>
+        <Text style={styles.title}>{image.tittle}</Text>
         <Text style={styles.favoritetext}>{image.favorite}</Text>
         </Body>
       </ListItem>

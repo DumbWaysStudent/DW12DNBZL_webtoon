@@ -5,17 +5,6 @@ const User = models.user
 
 exports.index = (req, res) => {
     let query
-    if (req.query.fav = true){
-        query = Toons.findAll({
-            where : {
-                isFavorite : req.query.fav 
-            },
-            include: [{
-                model: User,
-                as: "createdBy"
-            }]
-        })
-    }else
     if(req.query.title){
         query = Toons.findAll({
             where : {
@@ -45,6 +34,36 @@ exports.index = (req, res) => {
         }]
     })}
     query.then(toon=>res.send(toon))
+}
+
+exports.isfavorite=(req,res) =>{
+    let favquery
+    if (req.query.fav){
+        favquery = Toons.findAll({
+            where : {
+                isFavorite : req.query.fav 
+            },
+            include: [{
+                model: User,
+                as: "createdBy"
+            }]
+        })
+    }
+favquery.then(fav=>res.send(fav))
+}
+
+exports.userwebtoons= (req,res) =>{
+    let userwebtoonq
+    userwebtoonq = Toons.findAll({
+        where : {
+            created_By : req.params.user_id 
+        },
+        include: [{
+            model: User,
+            as: "createdBy"
+        }]
+    })
+    userwebtoonq.then(toon=>res.send(toon))
 }
 
 

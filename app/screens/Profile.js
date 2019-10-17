@@ -39,14 +39,15 @@ async retrieveSessionToken() {
    }
 }
 
-
 async componentDidMount(){
-  console.log('varToken = ',this.state.token)
-  console.log('ini sedang dimuat')
   this.retrieveSessionToken()
-  await axios.get('http://192.168.1.11:5000/api/v1/webtoon/1/episodes',{
+  const id = await AsyncStorage.getItem('userID')
+  const tokening = await AsyncStorage.getItem('userToken');
+  let new_id = JSON.parse(id)
+  console.log('id', new_id)
+  await axios.get(`http://192.168.1.11:5000/api/v1/user/${new_id}`,{
     headers: {
-      'Authorization': ' Bearer '+ this.state.token
+      'Authorization': 'Bearer '+ tokening
     }
   })
   .then(res => {
@@ -72,7 +73,7 @@ async logout() {
       <Container>
         <Content>
           <View style={styles.photoiconcontainer}>
-              <Image style={styles.image}  source={{uri : 'https://cdn3.iconfinder.com/data/icons/social-messaging-productivity-6/128/profile-female-circle2-512.png'}}></Image>
+              <Image style={styles.image}  source={{uri : this.state.entries.image}}></Image>
           </View>
           <View style={styles.createWT}>
             <TouchableOpacity style={{width:Dimensions.get('window').width}} onPress={()=>this.props.navigation.navigate("web_creation")}>

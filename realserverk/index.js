@@ -20,6 +20,7 @@ app.group("/api/v1", (router) => {
 
     router.post('/login', AuthController.login)
     router.post('/register', AuthController.register)
+    router.get('/user/:user_id', AuthController.index)
 
     //todos API
     router.get('/webtoons', ToonsController.index)    
@@ -33,7 +34,8 @@ app.group("/api/v1", (router) => {
     //pages API
     router.get('/webtoon/:toonID/episode/:epsID', authenticated,PagesController.index)
     //my webtoon API
-    router.get('/user/:user_id/webtoons', authenticated,ToonsController.index)
+    router.get('/user/:user_id/webtoons', authenticated,ToonsController.userwebtoons)
+
     //create my webtoon webtoon implementation
     router.post('/user/:user_id/webtoon', authenticated,ToonsController.store)
     //update detail my webtoon

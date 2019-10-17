@@ -58,3 +58,11 @@ exports.register = (req, res)=>{
         }
     }) 
 }
+
+
+exports.index = (req,res) =>{
+    User.findOne({where: {id : req.params.user_id}}).then(user=>{
+        res.send(user)
+        })
+    
+}

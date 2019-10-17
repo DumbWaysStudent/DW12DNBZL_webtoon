@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import { Container,Header,Text, Body, Content, Item, Input, Button,Label,ListItem} from 'native-base'
-import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList,SafeAreaView} from 'react-native';
+import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList,SafeAreaView,TouchableHighlight} from 'react-native';
 import Carousel from 'react-native-banner-carousel';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -62,8 +62,8 @@ export default class Foryouscreen extends Component{
         </TouchableOpacity>
         <Body>
         <Text style={styles.tittleall}>{image.tittle}</Text>
-        <Button style={styles.favoritebutton}><Text style={{fontSize:7}}>+ Favorite</Text>
-        </Button>
+        <TouchableHighlight style={styles.favoritebutton} disabled={false}><Text style={{fontSize:7}} onPress={()=> alert('favpress')}>+ Favorite</Text>
+        </TouchableHighlight>
         </Body>
       </ListItem>
      

@@ -43,7 +43,6 @@ export default class Detail_episodes extends Component{
   
   
   async componentDidMount(){
-    
     this.retrieveSessionToken()
     //retrieve id toon
     console.log('hasil get param = ',this.state.id)

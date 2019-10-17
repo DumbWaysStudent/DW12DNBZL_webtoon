@@ -15,9 +15,6 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
 
 
-
-
-
 export default class Login_screen extends Component{
   constructor(props){
     super(props)
@@ -28,13 +25,15 @@ export default class Login_screen extends Component{
       pass: '',
       button_status : true,
       token : '',
-      tokening : ''
+      tokening : '',
+      userID : 0
     }
    
   }
 
-  setitem(){
-    AsyncStorage.setItem('userToken', this.state.token);
+  async setitem(){
+    await AsyncStorage.setItem('userToken', this.state.token);
+    await AsyncStorage.setItem('userID',JSON.stringify(this.state.userID));
   }
 
   login = async () => {
@@ -43,11 +42,13 @@ export default class Login_screen extends Component{
         email : this.state.string,
         password : this.state.pass
       }
-      await axios.post("http://192.168.1.11:5000/api/v1/login",tempUser)
+      await axios.post(`http://192.168.1.11:5000/api/v1/login`,tempUser)
       .then((response) => {
         if (typeof response.data.token !== 'undefined'){
           this.setState({token: response.data.token})
+          this.setState({userID : response.data.user.id})
           this.setitem()
+          console.log(response.data.user.id)
           this.props.navigation.navigate('Fyscreen')
         }else{
           alert('Gagal login')
@@ -126,7 +127,12 @@ export default class Login_screen extends Component{
         <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.validate()}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableHighlight>
-        
+        <TouchableHighlight style={[styles.registerButton]} onPress={()=>this.props.navigation.navigate("Register")}>
+          <Text style={styles.registerText}>Register</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={[styles.foryouButton]} onPress={()=>this.props.navigation.navigate("Fyscreen")}>
+          <Text style={styles.foryouText}>I just came here to read the TOON</Text>
+        </TouchableHighlight>
          </View>
         </View>
         </Root>
@@ -141,7 +147,7 @@ const styles = StyleSheet.create({
     },
     containerlogo :{
       alignItems: 'center',
-      marginTop : 70,
+      marginTop : 40,
       backgroundColor: '#673ab7',
       marginBottom : 30,
       width : Dimensions.get('window').width
@@ -188,8 +194,25 @@ const styles = StyleSheet.create({
       borderColor : '#673ab7',
       borderWidth : 2
     },
+    registerButton: {
+      backgroundColor: '#673ab7',
+      borderColor : '#673ab7',
+      borderWidth : 2
+    },
+    foryouButton: {
+      backgroundColor: '#673ab7',
+      borderColor : '#673ab7',
+      borderWidth : 2,
+      marginTop : 30
+    },
+    registerText: {
+      color: 'black',
+    },
     loginText: {
       color: '#673ab7',
+    },
+    foryouText:{
+      color : 'white'
     },
     apptext : {
       fontSize : 30,
