@@ -13,6 +13,7 @@ import Carousel from 'react-native-banner-carousel';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
 
 
 
@@ -22,12 +23,12 @@ export default class Foryouscreen extends Component{
     this.state={
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 200,
-      entries: []
+      entries: [],
     }
   }
   
-  componentDidMount(){
-    axios.get('http://192.168.1.11:5000/api/v1/webtoons')
+  async componentDidMount(){
+    await axios.get('http://192.168.1.11:5000/api/v1/webtoons')
     .then(res => {
       const entries = res.data
       this.setState({entries})
@@ -37,7 +38,7 @@ export default class Foryouscreen extends Component{
   renderPage(image, index) {
     return (
         <View key={index}>
-          <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})}>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image},{satu : 1})}>
             <Image style={{ width: this.state.BannerWidth, height: this.state.BannerHeight }} source={{ uri: image.image }} />
             </TouchableOpacity>
         </View>

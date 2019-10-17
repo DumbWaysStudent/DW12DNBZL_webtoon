@@ -11,7 +11,9 @@ import { Text,Toast, Root} from 'native-base'
 import {StyleSheet,Image,TouchableOpacity,View,TextInput,TouchableHighlight,Dimensions} from 'react-native'
 import ImageExample from '../assets/logo'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import axios from 'axios';
+import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
+
 
 
 
@@ -21,27 +23,55 @@ export default class Login_screen extends Component{
     super(props)
     this.state={
       eye : true,
-      loading : false,
       string : '',
       allow : true,
       pass: '',
-      button_status : true
+      button_status : true,
+      token : '',
+      tokening : ''
     }
-    this.loginUser = this.loginUser.bind(this)
+   
   }
 
+  setitem(){
+    AsyncStorage.setItem('userToken', this.state.token);
+  }
+
+  login = async () => {
+    try{
+      let tempUser = {
+        email : this.state.string,
+        password : this.state.pass
+      }
+      await axios.post("http://192.168.1.11:5000/api/v1/login",tempUser)
+      .then((response) => {
+        if (typeof response.data.token !== 'undefined'){
+          this.setState({token: response.data.token})
+          this.setitem()
+          this.props.navigation.navigate('Fyscreen')
+        }else{
+          alert('Gagal login')
+        }
+      })
+      .catch((error)=>{
+        alert(error)
+      });
+    }
+    catch (e){
+      console.log(e)
+    }
+  }
   
   validate = () => {
     if ((this.state.string !== '') && (this.state.pass !== '')){  
       if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.string)) {
       this.state.allow = true;
+      this.login()
       Toast.show({
         text: "Correct Email Format",
         buttonText: "Okay",
         duration: 3000,
         });
-      this.props.navigation.navigate('Fyscreen'); 
-      
       }else{
       this.state.allow = false;
       Toast.show({
@@ -58,7 +88,7 @@ export default class Login_screen extends Component{
       });  
   }
   }
-  
+
 
 
   render() {

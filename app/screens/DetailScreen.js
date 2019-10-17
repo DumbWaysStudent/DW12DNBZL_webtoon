@@ -20,46 +20,47 @@ export default class Detail_screen extends Component{
     this.state={
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
-      entries: [{
-        title: 'Episode 1',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Episode 2',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Episode 3',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      },{
-        title: 'Episode 4',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Episode 5',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Episode 6',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      },{
-        title: 'Episode 7',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Episode 8',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Episode 9',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }]
+      id : props.navigation.getParam(title),
+      entries: []
     }
   }
   
+  async retrieveSessionToken() {
+    try {
+      const tokening = await AsyncStorage.getItem('userToken');
+      if (tokening !== null) {
+        console.log("Session token",tokening);
+        this.setState({token : tokening})
+      }else{
+        console.log("Youre not Logged in Yet");
+        alert('must login first')
+        this.props.navigation.navigate('Login')
+      }
+     }catch (e) {
+       console.log(error)
+     }
+  }
+  
+  
+  async componentDidMount(){
+    console.log('varToken = ',this.state.token)
+    console.log('ini sedang dimuat')
+    this.retrieveSessionToken()
+    //retrieve id toon
+    const idtoon = this.state.id
+    console.log('hasil get param = ',idtoon)
+    await axios.get('http://192.168.1.11:5000/api/v1/webtoon/1/episodes',{
+      headers: {
+        'Authorization': ' Bearer '+ this.state.token
+      }
+    })
+    .then(res => {
+      const entries = res.data
+      this.setState({entries})
+      console.log(entries)
+    })
+  }
+
   allPage(image, index) {
     return (
       <ListItem style={{height:100,borderWidth:0}}>
@@ -81,7 +82,7 @@ export default class Detail_screen extends Component{
         <Content>
           <Item>
           <View style={styles.container}>        
-            <Image style={{ width: this.state.BannerWidth, height: this.state.BannerHeight }} source={{ uri: this.state.entries[1].image }} />
+            <Image style={{ width: this.state.BannerWidth, height: this.state.BannerHeight }} source={{ uri: this.state.entries.image }} />
           </View>
           </Item>
           <Item style={{borderWidth:0}}>

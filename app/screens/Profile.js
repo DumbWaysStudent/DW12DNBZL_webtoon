@@ -11,16 +11,61 @@ import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,R
 import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import AsyncStorage from '@react-native-community/async-storage'
+import axios from 'axios'
 
 export default class Profile extends Component{
   constructor(props){
     super(props)
     this.state={
+      token : '',
+      entries : []
     }
 }
   
-  
-  
+async retrieveSessionToken() {
+  try {
+    const tokening = await AsyncStorage.getItem('userToken');
+    if (tokening !== null) {
+      console.log("Session token",tokening);
+      this.setState({token : tokening})
+    }else{
+      console.log("Youre not Logged in Yet");
+      alert('must login first')
+      this.props.navigation.navigate('Login')
+    }
+   }catch (e) {
+     console.log(error)
+   }
+}
+
+
+async componentDidMount(){
+  console.log('varToken = ',this.state.token)
+  console.log('ini sedang dimuat')
+  this.retrieveSessionToken()
+  await axios.get('http://192.168.1.11:5000/api/v1/webtoon/1/episodes',{
+    headers: {
+      'Authorization': ' Bearer '+ this.state.token
+    }
+  })
+  .then(res => {
+    const entries = res.data
+    this.setState({entries})
+    console.log(entries)
+  })
+}
+
+async logout() {
+  try {
+    await AsyncStorage.removeItem('userToken');
+    this.componentDidMount()
+  }
+  catch(exception) {
+    return false;
+  }
+}
+
   render() {
     
     return (
@@ -40,7 +85,7 @@ export default class Profile extends Component{
             </TouchableOpacity>  
           </View>
           <Item style={styles.createWT}>
-            <TouchableOpacity style={{width:Dimensions.get('window').width}} onPress={() => alert('LogOut')}> 
+            <TouchableOpacity style={{width:Dimensions.get('window').width}} onPress={() => this.logout()}> 
             <Text style={styles.menuText}>Log Out</Text>
             </TouchableOpacity> 
           </Item>

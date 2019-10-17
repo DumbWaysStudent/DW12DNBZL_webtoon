@@ -8,20 +8,24 @@ const User = models.user
 exports.login = (req, res)=>{    
     //check if email and pass match in db tbl user
     const email = req.body.email
-    const password = bcrypt.hashSync(req.body.password, salt) //use encryption in real world case!
-    console.log(password)
-    User.findOne({where: {email, password}}).then(user=>{
+    const password = req.body.password //use encryption in real world case!
+    
+    User.findOne({where: {email}}).then(user=>{
         if(user){
+            bcrypt.compare(password, user.password, function (err, result) {
+            if(result == true) {
             const token = jwt.sign({ userId: user.id }, 'my-secret-key')
             res.send({
                 user,
                 token,
-
             }) 
+            }
+            })
         }else{
             res.send({
                 error: true,
-                message: "Wrong Email or Password!"
+                message: "Wrong Email or Password!",
+                
             })
         }
     }) 

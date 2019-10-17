@@ -7,9 +7,10 @@
  */
 
 import React, { Component } from 'react';
-import { Icon,Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
-import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList} from 'react-native';
-import Carousel from 'react-native-banner-carousel';
+import { Container,Content} from 'native-base'
+import {Image,StyleSheet,Dimensions,FlatList} from 'react-native';
+import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
 
 
 export default class Detail_episodes extends Component{
@@ -18,46 +19,44 @@ export default class Detail_episodes extends Component{
     this.state={
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
-      entries: [{
-        title: 'Episode 1',
-        date: '1 Januari 1945',
-        image: 'https://1.bp.blogspot.com/-W_OZk6ZPMgU/Wd79RTN7YFI/AAAAAAAAD2U/NIJX1WQFOFsZ0gvPfIwKEa1515V-ugy3ACK4BGAYYCw/s1600/Petruk%2BGareng%2B-%2BSetan%2BPerawan-00.jpg'
-      }, {
-        title: 'Episode 2',
-        date: '1 Januari 1945',
-        image: 'http://www.egrafis.com/images/baca-komik-tatang-s-malam-satu-suro-permainan-bocah.jpg'
-      }, {
-        title: 'Episode 3',
-        date: '1 Januari 1945',
-        image: 'https://calisweb.files.wordpress.com/2016/08/31.png?w=736'
-      },{
-        title: 'Episode 4',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Episode 5',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Episode 6',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      },{
-        title: 'Episode 7',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Episode 8',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Episode 9',
-        date: '1 Februari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }]
+      entries: []
     }
   }
   
+  async retrieveSessionToken() {
+    try {
+      const tokening = await AsyncStorage.getItem('userToken');
+      if (tokening !== null) {
+        console.log("Session token",tokening);
+        this.setState({token : tokening})
+      }else{
+        console.log("Youre not Logged in Yet");
+        alert('must login first')
+        this.props.navigation.navigate('Login')
+      }
+     }catch (e) {
+       console.log(error)
+     }
+  }
+  
+  
+  async componentDidMount(){
+    console.log('varToken = ',this.state.token)
+    console.log('ini sedang dimuat')
+    this.retrieveSessionToken()
+    await axios.get('http://192.168.1.11:5000/api/v1/webtoon/1/episodes',{
+      headers: {
+        'Authorization': ' Bearer '+ this.state.token
+      }
+    })
+    .then(res => {
+      const entries = res.data
+      this.setState({entries})
+      console.log(entries)
+    })
+  }
+
+
   allPage(image, index) {
     return (
         <Image source={{uri : image.image}} style={{width: Dimensions.get('window').width, height: 300}}></Image>

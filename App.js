@@ -17,7 +17,7 @@ import edit_create_webtoon_episode from './app/screens/EditWebtoonEpisode'
 import Edit_profile from './app/screens/EditProfile'
 import My_webtoon_creation from './app/screens/MyWebtoonCreation'
 
-import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
+
 
 onShare = async () => {
   try {
@@ -181,7 +181,7 @@ const switchContainer = createSwitchNavigator({
 })
 }
 },{
-  initialRouteName : 'Login'
+  initialRouteName : 'Fyscreen'
 })
 
 const AppContainer = createAppContainer(switchContainer)
