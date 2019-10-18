@@ -19,23 +19,7 @@ export default class edit_create_webtoon_episode extends Component{
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
       item : this.props.navigation.state.params.title,
-      entries: [{
-        title: 'Cover.jpg',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'Introduction.jpg',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }, {
-        title: 'page_1.jpg',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      },{
-        title: 'page_2.jpg',
-        date: '1 Januari 1945',
-        image: 'https://akcdn.detik.net.id/community/media/visual/2019/04/03/dac43146-7dd4-49f4-89ca-d81f57b070fc.jpeg?w=770&q=90'
-      }]
+      entries: []
     }
   }
   

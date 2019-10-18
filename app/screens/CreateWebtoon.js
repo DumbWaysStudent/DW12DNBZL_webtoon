@@ -116,7 +116,7 @@ export default class create_webtoon extends Component{
   allPage(image) {
     return (
         <ListItem style={styles.listItemContainer}>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("edit_create_webtoon", {title :image})} style={{width: 66, height: 58}}>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate("create_webtoon_episode", {title :image})} style={{width: 66, height: 58}}>
         <Image source={{uri : image.image}} style={{width: 66, height: 58}}></Image>
         </TouchableOpacity>
         <Body>
@@ -124,7 +124,7 @@ export default class create_webtoon extends Component{
         <Text style={{fontSize:10}}>{image.createdAt}</Text>
         </Body>
         <Right> 
-        <TouchableOpacity onPress={()=> this.setState({modal:true,update:true,toonid:image.id})}>
+        <TouchableOpacity onPress={()=> this.setState({modal:true,update:true,toonid: image.id})}>
         <Icon size={25} style={{marginRight : 30}} name="pencil"  />
         </TouchableOpacity>
         <Icon size={25} style={{marginRight : 30,color : 'red',marginTop: 20}} name="trash" onPress={()=>this.deletewebtoon(image.id)} />
@@ -189,6 +189,9 @@ export default class create_webtoon extends Component{
               <Button onPress={()=>this.state.update == true ? this.edit() :this.postwebtoon()} style={styles.button}>
                  <Text style={{color: 'black'}}>+ ADD WEBTOON</Text>
              </Button>
+             <TouchableOpacity onPress={()=>this.setState({modal: false})}>
+               <Text>Close</Text>
+             </TouchableOpacity>
           </View>
         </Modal>
         </Content>

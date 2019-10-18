@@ -7,8 +7,8 @@
  */
 
 import React, { Component } from 'react';
-import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
-import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList} from 'react-native';
+import { Container,Text, Content, Item, Right,} from 'native-base'
+import {Image,View,StyleSheet,Dimensions} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AsyncStorage from '@react-native-community/async-storage'
