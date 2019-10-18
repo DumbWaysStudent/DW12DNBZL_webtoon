@@ -11,16 +11,37 @@ module.exports = {
         updatedAt : new Date()
       },
       {
-        title: "Setan Mudik",
+        title: "Eps.2",
         image : "petruk.png",
         toons_id: 1,
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
-        title: "Genderuwo Lucinta",
+        title: "Eps. 3",
         image : "petruk.png",
         toons_id: 2,
+        createdAt : new Date(),
+        updatedAt : new Date()
+      },
+      {
+        title: "Eps . 1",
+        image : "petruk.png",
+        toons_id: 1,
+        createdAt : new Date(),
+        updatedAt : new Date()
+      },
+      {
+        title: "Eps.2",
+        image : "petruk.png",
+        toons_id: 2,
+        createdAt : new Date(),
+        updatedAt : new Date()
+      },
+      {
+        title: "Eps. 3",
+        image : "petruk.png",
+        toons_id: 4,
         createdAt : new Date(),
         updatedAt : new Date()
       },

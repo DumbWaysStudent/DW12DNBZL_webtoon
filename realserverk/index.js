@@ -21,10 +21,11 @@ app.group("/api/v1", (router) => {
     router.post('/login', AuthController.login)
     router.post('/register', AuthController.register)
     router.get('/user/:user_id', AuthController.index)
+    router.put('/user/:user_id', AuthController.update)
 
     //todos API
     router.get('/webtoons', ToonsController.index)    
-    router.get('/webtoon/:id', ToonsController.show)    
+    router.get('/webtoon/:user_id', ToonsController.userwebtoons)    
     router.post('/webtoon', authenticated,ToonsController.store)    
     router.patch('/webtoon/:id', authenticated,ToonsController.update)    
     router.delete('/webtoon/:id', authenticated,ToonsController.delete)

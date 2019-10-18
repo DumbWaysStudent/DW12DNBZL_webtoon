@@ -1,14 +1,17 @@
 const models = require('../models')
 const Toons = models.toons
 const User = models.user
-
+const Sequelize = require('sequelize')
 
 exports.index = (req, res) => {
     let query
+    const Op = Sequelize.Op;
     if(req.query.title){
         query = Toons.findAll({
             where : {
-                tittle : req.query.title 
+                tittle: {
+                    [Op.like] : '%' + req.query.title  + '%'
+                }
             },
             include: [{
                 model: User,
@@ -41,7 +44,7 @@ exports.isfavorite=(req,res) =>{
     if (req.query.fav){
         favquery = Toons.findAll({
             where : {
-                isFavorite : req.query.fav 
+                isFavorite : true 
             },
             include: [{
                 model: User,
@@ -65,6 +68,8 @@ exports.userwebtoons= (req,res) =>{
     })
     userwebtoonq.then(toon=>res.send(toon))
 }
+
+
 
 
 exports.show = (req, res) => {

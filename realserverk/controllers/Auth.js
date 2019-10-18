@@ -50,9 +50,11 @@ exports.register = (req, res)=>{
                 name : name
             }
             User.create(data).then(user => {
+                const token = jwt.sign({ userId: user.id }, 'my-secret-key')
                 res.send({
                     message: "success",
-                    user
+                    name,
+                    token
                 })
             })
         }
@@ -65,4 +67,19 @@ exports.index = (req,res) =>{
         res.send(user)
         })
     
+}
+
+exports.update=(req,res) =>{
+    const data ={
+        name : req.body.name,
+        image : req.body.image
+    }
+    User.update(
+        data,
+        {where : {
+            id : req.params.user_id
+        }
+    }).then(user=>{
+        res.send(user)
+    })
 }
