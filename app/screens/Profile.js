@@ -13,6 +13,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AsyncStorage from '@react-native-community/async-storage'
 import axios from 'axios'
+import {ip} from '../ip'
 
 export default class Profile extends Component{
   constructor(props){
@@ -45,7 +46,7 @@ async componentDidMount(){
   const tokening = await AsyncStorage.getItem('userToken');
   let new_id = JSON.parse(id)
   console.log('id', new_id)
-  await axios.get(`http://192.168.1.11:5000/api/v1/user/${new_id}`,{
+  await axios.get(`${ip}/user/${new_id}`,{
     headers: {
       'Authorization': 'Bearer '+ tokening
     }

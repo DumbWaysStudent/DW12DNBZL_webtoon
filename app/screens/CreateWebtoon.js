@@ -14,6 +14,7 @@ import axios from 'axios'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AsyncStorage from '@react-native-community/async-storage'
 import Modal from 'react-native-modal'
+import {ip} from '../ip'
 
 export default class create_webtoon extends Component{
   constructor(props){
@@ -58,7 +59,7 @@ export default class create_webtoon extends Component{
     let new_id = JSON.parse(id)
     this.setState({id : new_id})
     console.log('id', new_id)
-    await axios.get(`http://192.168.1.11:5000/api/v1/user/${new_id}/webtoons`,{
+    await axios.get(`${ip}/user/${new_id}/webtoons`,{
       headers: {
         'Authorization': ' Bearer '+ this.state.token
       }
@@ -71,7 +72,7 @@ export default class create_webtoon extends Component{
   }
 
   postwebtoon= async() =>{
-    await axios.post(`http://192.168.1.11:5000/api/v1/user/${this.state.id}/webtoon`,{
+    await axios.post(`${ip}/user/${this.state.id}/webtoon`,{
       title : this.state.newtitle,
       genre : this.state.newGenre,
       image : this.state.newImage
@@ -87,7 +88,7 @@ export default class create_webtoon extends Component{
   }
 
   deletewebtoon=async(id)=>{
-    await axios.delete(`http://192.168.1.11:5000/api/v1/user/${this.state.id}/webtoon/${id}`,{
+    await axios.delete(`${ip}/user/${this.state.id}/webtoon/${id}`,{
       headers : {
         'Authorization': ' Bearer '+ this.state.token
       }
@@ -98,7 +99,7 @@ export default class create_webtoon extends Component{
   }
 
   edit=async()=>{
-    await axios.put(`http://192.168.1.11:5000/api/v1/user/${this.state.id}/webtoon/${this.state.toonid}`,{
+    await axios.put(`${ip}/user/${this.state.id}/webtoon/${this.state.toonid}`,{
       title : this.state.newtitle,
       genre : this.state.newGenre,
       image : this.state.newImage

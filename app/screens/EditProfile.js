@@ -14,6 +14,7 @@ import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
+import {ip} from '../ip'
 
 
 export default class Edit_profile extends Component{
@@ -23,7 +24,8 @@ export default class Edit_profile extends Component{
         photo: '',
         entries : [],
         token : '',
-        name: ''
+        name: '',
+        id : 0
     }
 }
   handleChoosePhoto = () =>{
@@ -59,8 +61,9 @@ export default class Edit_profile extends Component{
     const id = await AsyncStorage.getItem('userID')
     const tokening = await AsyncStorage.getItem('userToken');
     let new_id = JSON.parse(id)
+    this.setState({id : new_id})
     console.log('id', new_id)
-    await axios.get(`http://192.168.1.11:5000/api/v1/user/${new_id}`,{
+    await axios.get(`${ip}/user/${new_id}`,{
       headers: {
         'Authorization': 'Bearer '+ tokening
       }
@@ -70,6 +73,10 @@ export default class Edit_profile extends Component{
       this.setState({entries})
       console.log(entries)
     })
+  }
+
+  async confirm(){
+    await axios.put(`${ip}/user/${this.state.id}`)
   }
   
   render() {
@@ -87,8 +94,11 @@ export default class Edit_profile extends Component{
             <Input style={styles.input} placeholder={this.state.entries.name} onChangeText={(text)=>this.setState({name : text})}>
             </Input>
           </View>
-
-          
+          <View style={{alignItems:'center',marginTop: 30}}>
+          <TouchableOpacity onPress={()=>this.confirm()}>
+            <Icon name="check" size={30}></Icon>
+          </TouchableOpacity>
+          </View>
         </Content>
         
       </Container>

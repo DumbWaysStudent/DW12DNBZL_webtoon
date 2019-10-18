@@ -7,11 +7,12 @@
  */
 
 import React, { Component } from 'react';
-import { Container,Header,Text, Body, Content, Form, Item, Input, Button,Toast,Root, Label,InputGroup, Footer, FooterTab, CardItem,Card, Left, Right, ListItem} from 'native-base'
-import {Image,View,StyleSheet,Dimensions,ScrollView,FlatList,Share} from 'react-native';
+import { Container,Text, Body, Content, Item, ListItem} from 'native-base'
+import {Image,View,StyleSheet,Dimensions,FlatList} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
+import {ip} from '../ip'
 
 
 export default class Detail_screen extends Component{
@@ -50,7 +51,7 @@ export default class Detail_screen extends Component{
     //retrieve id toon
     console.log('hasil get param = ',this.state.id)
     const tokening = await AsyncStorage.getItem('userToken');
-    await axios.get(`http://192.168.1.11:5000/api/v1/webtoon/${this.state.id}/episodes`,{
+    await axios.get(`${ip}/webtoon/${this.state.id}/episodes`,{
       headers: {
         'Authorization': 'Bearer '+ tokening
       }

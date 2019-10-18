@@ -13,6 +13,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import Modal from 'react-native-modal'
 import axios from 'axios'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import {ip} from '../ip'
 
 export default class create_webtoon_episode extends Component{
   constructor(props){
@@ -58,7 +59,7 @@ export default class create_webtoon_episode extends Component{
     let new_id = JSON.parse(id)
     this.setState({id : new_id})
     console.log('id', new_id)
-    await axios.get(`http://192.168.1.11:5000/api/v1/user/${new_id}/webtoon/${this.state.toonid}/episodes`,{
+    await axios.get(`${ip}/user/${new_id}/webtoon/${this.state.toonid}/episodes`,{
       headers: {
         'Authorization': ' Bearer '+ this.state.token
       }
@@ -71,7 +72,7 @@ export default class create_webtoon_episode extends Component{
   }
 
   postepisode= async() =>{
-    await axios.post(`http://192.168.1.11:5000/api/v1/user/${this.state.id}/webtoon/${this.state.toonid}/episodes`,{
+    await axios.post(`${ip}/user/${this.state.id}/webtoon/${this.state.toonid}/episodes`,{
       title : this.state.newtitle,
       image : this.state.newImage
     },{
@@ -86,7 +87,7 @@ export default class create_webtoon_episode extends Component{
   }
 
   deleteepisode=async(id)=>{
-    await axios.delete(`http://192.168.1.11:5000/api/v1/user/${this.state.id}/webtoon/${this.state.toonid}/episodes/${id}`,{
+    await axios.delete(`${ip}/user/${this.state.id}/webtoon/${this.state.toonid}/episodes/${id}`,{
       headers : {
         'Authorization': ' Bearer '+ this.state.token
       }
@@ -97,7 +98,7 @@ export default class create_webtoon_episode extends Component{
   }
 
   edit=async()=>{
-    await axios.put(`http://192.168.1.11:5000/api/v1/user/${this.state.id}/webtoon/${this.state.toonid}/episodes/${this.state.epid}`,{
+    await axios.put(`${ip}/user/${this.state.id}/webtoon/${this.state.toonid}/episodes/${this.state.epid}`,{
       title : this.state.newtitle,
       genre : this.state.newGenre,
       image : this.state.newImage

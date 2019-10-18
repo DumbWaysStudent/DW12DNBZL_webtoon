@@ -12,6 +12,7 @@ import {StyleSheet,Image,TouchableOpacity,View,TextInput,TouchableHighlight,Dime
 import ImageExample from '../assets/logo'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from 'axios';
+import {ip} from '../ip'
 
 
 
@@ -35,7 +36,7 @@ export default class Register extends Component{
         password : this.state.pass,
         name : this.state.name
       }
-      await axios.post(`http://192.168.1.11:5000/api/v1/register`,tempUser)
+      await axios.post(`${ip}/register`,tempUser)
       .then((response) => {
         if (typeof response.data !== 'undefined'){
           Toast.show({

@@ -13,6 +13,7 @@ import Carousel from 'react-native-banner-carousel';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from 'axios'
+import {ip} from '../ip'
 
 
 
@@ -23,17 +24,30 @@ export default class Foryouscreen extends Component{
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 200,
       entries: [],
+      search : ''
     }
   }
   
   async componentDidMount(){
-    await axios.get('http://192.168.1.11:5000/api/v1/webtoons')
+    await axios.get(`${ip}/webtoons`)
     .then(res => {
       const entries = res.data
       this.setState({entries})
       console.log(entries)
     })
   }
+
+async search(text){
+  console.log(text)
+  await axios.get(`${ip}/webtoons?title=${text}`)
+  .then(res => {
+    const entries = res.data
+    this.setState({entries})
+    console.log(entries)
+  })
+}
+
+
   renderPage(image, index) {
     return (
         <View key={index}>
@@ -76,8 +90,10 @@ export default class Foryouscreen extends Component{
       <Container>
         <Header searchBar rounded style={styles.header}>
           <Item rounded>
-            <Input placeholder="Search" style={{marginLeft: 20}} />
+            <Input placeholder="Search" style={{marginLeft: 20}} onChangeText={(text)=>{this.setState({search:text})}}/>
+            <TouchableHighlight onPress={()=> this.search(this.state.search)}>
             <Icon size={25} style={styles.seachIcon} name="search" />
+            </TouchableHighlight>
           </Item>
           <Button transparent>
             <Text>Search</Text>

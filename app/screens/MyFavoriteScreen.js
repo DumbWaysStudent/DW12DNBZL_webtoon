@@ -11,7 +11,7 @@ import { Icon,Container,Header,Text, Body, Content, Item, Input, Button,ListItem
 import {Image,StyleSheet,Dimensions,FlatList,TouchableOpacity,SafeAreaView} from 'react-native';
 import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
-
+import {ip} from '../ip'
 
 
 
@@ -51,7 +51,7 @@ export default class My_favourite_screen extends Component{
     const tokening = await AsyncStorage.getItem('userToken');
     const id = await AsyncStorage.getItem('userID');
     let new_id = JSON.parse(id)
-    await axios.get(`http://192.168.1.11:5000/api/v1/user/${new_id}`,{
+    await axios.get(`${ip}/user/${new_id}`,{
       headers: {
         'Authorization': 'Bearer '+ tokening
       }

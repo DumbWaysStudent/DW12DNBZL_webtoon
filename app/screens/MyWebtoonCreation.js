@@ -12,7 +12,7 @@ import {Image,StyleSheet,Dimensions,FlatList,TouchableOpacity} from 'react-nativ
 import SafeAreaView from 'react-native-safe-area-view';
 import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
-
+import {ip} from '../ip'
 
 export default class My_webtoon_creation extends Component{
   constructor(props){
@@ -40,7 +40,6 @@ export default class My_webtoon_creation extends Component{
      }
   }
   
-  
   async componentDidMount(){
     console.log('varToken = ',this.state.token)
     console.log('ini sedang dimuat')
@@ -48,7 +47,7 @@ export default class My_webtoon_creation extends Component{
     const id = await AsyncStorage.getItem('userID')
     let new_id = JSON.parse(id)
     console.log('id', new_id)
-    await axios.get(`http://192.168.1.11:5000/api/v1/user/${new_id}/webtoons`,{
+    await axios.get(`${ip}/user/${new_id}/webtoons`,{
       headers: {
         'Authorization': ' Bearer '+ this.state.token
       }

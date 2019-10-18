@@ -13,6 +13,7 @@ import ImageExample from '../assets/logo'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
+import {ip} from '../ip'
 
 
 export default class Login_screen extends Component{
@@ -42,7 +43,7 @@ export default class Login_screen extends Component{
         email : this.state.string,
         password : this.state.pass
       }
-      await axios.post(`http://192.168.1.11:5000/api/v1/login`,tempUser)
+      await axios.post(`${ip}/login`,tempUser)
       .then((response) => {
         if (typeof response.data.token !== 'undefined'){
           this.setState({token: response.data.token})

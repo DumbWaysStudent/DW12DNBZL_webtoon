@@ -11,6 +11,7 @@ import { Container,Content} from 'native-base'
 import {Image,StyleSheet,Dimensions,FlatList} from 'react-native';
 import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
+import {ip} from '../ip'
 
 
 export default class Detail_episodes extends Component{
@@ -48,7 +49,7 @@ export default class Detail_episodes extends Component{
     console.log('hasil get param = ',this.state.id)
     console.log('hasil episodeid = ',this.state.epid)
     const tokening = await AsyncStorage.getItem('userToken');
-    await axios.get(`http://192.168.1.11:5000/api/v1/webtoon/${this.state.epid}/episode/${this.state.id}`,{
+    await axios.get(`${ip}/webtoon/${this.state.epid}/episode/${this.state.id}`,{
       headers: {
         'Authorization': 'Bearer '+ tokening
       }
