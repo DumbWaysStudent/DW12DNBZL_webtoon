@@ -20,6 +20,7 @@ import Register from './app/screens/Register'
 
 
 
+
 onShare = async () => {
   try {
     const result = await Share.share({

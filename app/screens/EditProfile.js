@@ -84,7 +84,7 @@ export default class Edit_profile extends Component{
       <Container>
         <Content>
           <View style={styles.imageContainer}>
-              <Image style={styles.image}  source={{uri : this.state.entries.image}}></Image>
+              <Image style={styles.image}  source={{uri : this.state.photo}}></Image>
               <TouchableOpacity onPress={this.handleChoosePhoto}>
               <Icon name="camera" size={20}></Icon>
               </TouchableOpacity>

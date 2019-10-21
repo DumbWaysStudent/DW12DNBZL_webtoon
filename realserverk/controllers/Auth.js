@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const salt = bcrypt.genSaltSync(10)
 const models = require('../models')
+const multer  = require('multer'); 
+const path = require('path');
 const User = models.user
 
 exports.login = (req, res)=>{    
