@@ -4,7 +4,15 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     name: DataTypes.STRING,
-    image : DataTypes.STRING
+    image : 
+    {
+      type: DataTypes.STRING,
+      //Set custom getter for book image using URL
+      get(){
+          const image = this.getDataValue('image');
+          return "/img/"+image;
+      }
+  }
   }, {});
   user.associate = function(models) {
     // associations can be defined here

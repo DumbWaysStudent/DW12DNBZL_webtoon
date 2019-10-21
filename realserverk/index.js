@@ -31,9 +31,9 @@ app.group("/api/v1", (router) => {
     router.delete('/webtoon/:id', authenticated,ToonsController.delete)
     //another APIs goes here
     //episode API
-    router.get('/webtoon/:toonID/episodes', authenticated,EpisodeController.index)    
+    router.get('/webtoon/:toonID/episodes', EpisodeController.index)    
     //pages API
-    router.get('/webtoon/:toonID/episode/:epsID', authenticated,PagesController.index)
+    router.get('/webtoon/:toonID/episode/:epsID', PagesController.index)
     //my webtoon API
     router.get('/user/:user_id/webtoons', authenticated,ToonsController.userwebtoons)
 

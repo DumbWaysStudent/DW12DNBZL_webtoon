@@ -13,13 +13,13 @@ exports.login = (req, res)=>{
     User.findOne({where: {email}}).then(user=>{
         if(user){
             bcrypt.compare(password, user.password, function (err, result) {
-            if(result == true) {
-            const token = jwt.sign({ userId: user.id }, 'my-secret-key')
-            res.send({
-                user,
-                token,
-            }) 
-            }
+                if(result == true) {
+                    const token = jwt.sign({ userId: user.id }, 'my-secret-key')
+                    res.send({
+                        user,
+                        token,
+                    }) 
+                }
             })
         }else{
             res.send({

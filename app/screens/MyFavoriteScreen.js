@@ -14,7 +14,6 @@ import AsyncStorage from '@react-native-community/async-storage'
 import {ip} from '../ip'
 
 
-
 export default class My_favourite_screen extends Component{
   constructor(props){
     super(props)
