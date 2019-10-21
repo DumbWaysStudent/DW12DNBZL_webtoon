@@ -29,6 +29,9 @@ build/
 local.properties
 *.iml
 
+#image file saved
+img/
+
 # node.js
 #
 node_modules/

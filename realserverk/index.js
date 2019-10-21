@@ -1,9 +1,37 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 require('express-group-routes')
+const multer  = require('multer'); 
+
 
 const app = express()
 const port = 5000
+
+
+
+const storage = multer.diskStorage({
+    destination: function(req,file,cb){
+        cb(null, './public/img/')
+    },
+    filename : function(req,file,cb){
+        cb(null, new Date().toISOString() + file.originalname);
+    }
+})
+
+const fileFilter = (req,file,cb)=> {
+    //reject file
+    if(file.mimetype ==='image/jpeg' || file.mimetype === 'image/png'){
+        cb(null,true)
+    }else {
+        cb(null,false)
+    }
+}
+
+const upload = multer({storage : storage,limits:{
+    fileSize : 2048 * 2048 * 5
+}, 
+fileFilter : fileFilter
+})
 
 //controllers
 const AuthController = require('./controllers/Auth')
@@ -13,7 +41,7 @@ const PagesController = require('./controllers/pages')
 
 app.use(bodyParser.json())
 
-
+app.use('/public',express.static('public'));
 const { authenticated } = require('./middleware')
 
 app.group("/api/v1", (router) => {
@@ -21,7 +49,7 @@ app.group("/api/v1", (router) => {
     router.post('/login', AuthController.login)
     router.post('/register', AuthController.register)
     router.get('/user/:user_id', AuthController.index)
-    router.put('/user/:user_id', AuthController.update)
+    router.put('/user/:user_id',upload.single('image') ,AuthController.update)
 
     //todos API
     router.get('/webtoons', ToonsController.index)    

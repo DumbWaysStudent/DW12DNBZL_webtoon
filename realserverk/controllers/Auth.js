@@ -1,11 +1,13 @@
-  
+ 
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const salt = bcrypt.genSaltSync(10)
 const models = require('../models')
 const multer  = require('multer'); 
-const path = require('path');
 const User = models.user
+
+const ip = `http://192.168.1.41:5000/`
+const upload = multer({dest : './public/img/'})
 
 exports.login = (req, res)=>{    
     //check if email and pass match in db tbl user
@@ -71,10 +73,11 @@ exports.index = (req,res) =>{
     
 }
 
-exports.update=(req,res) =>{
+exports.update= (req,res) =>{
+    console.log(req.file)
     const data ={
         name : req.body.name,
-        image : req.body.image
+        image : ip + req.file.path
     }
     User.update(
         data,
@@ -82,6 +85,10 @@ exports.update=(req,res) =>{
             id : req.params.user_id
         }
     }).then(user=>{
-        res.send(user)
+        res.send({
+            message:"success uploading",
+            user,
+            
+            })
     })
 }

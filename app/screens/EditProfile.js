@@ -34,12 +34,13 @@ export default class Edit_profile extends Component{
       };
       ImagePicker.launchImageLibrary(options, response => {
         if (response.uri) {
-          console.log(response.uri)
+          console.log('this is it',response.uri)
           this.setState({ photo: response });
         }
       });
   };
 
+  
   async retrieveSessionToken() {
     try {
       const tokening = await AsyncStorage.getItem('userToken');
@@ -76,15 +77,50 @@ export default class Edit_profile extends Component{
   }
 
   async confirm(){
-    await axios.put(`${ip}/user/${this.state.id}`)
+    const createFormData = (photo, body) => {
+      const data = new FormData();
+    
+      data.append('image', {
+        name: photo.fileName,
+        type: photo.type,
+        uri:
+          Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', ''),
+      })
+    
+      Object.keys(body).forEach(key => {
+        data.append(key, body[key])
+      })
+      console.log('data' ,data)
+      return data
+      
+    }
+    console.log('tokennya ini', this.state.token)
+    await axios.put(`${ip}/user/${this.state.id}`,createFormData(this.state.photo, { name: this.state.name },
+    {
+      headers: {
+        'Authorization': 'Bearer '+ this.state.token
+      }
+    }
+    ))
+    .then(response => {
+      console.log('upload success', response)
+      alert('Data diupdate')
+      this.setState({photo : ''});
+      this.props.navigation.navigate("profile")
+    })
+    .catch(error =>{
+      console.log('upload error', error);
+      alert('upload failed')
+    })
   }
   
   render() {
+    const { photo } = this.state;
     return (
       <Container>
         <Content>
           <View style={styles.imageContainer}>
-              <Image style={styles.image}  source={{uri : this.state.photo}}></Image>
+              <Image style={styles.image}  source={{uri : photo.uri}}></Image>
               <TouchableOpacity onPress={this.handleChoosePhoto}>
               <Icon name="camera" size={20}></Icon>
               </TouchableOpacity>
