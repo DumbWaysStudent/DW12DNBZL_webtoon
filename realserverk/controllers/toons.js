@@ -1,6 +1,7 @@
 const models = require('../models')
 const Toons = models.toons
 const User = models.user
+const UserFav = models.userfav
 const Sequelize = require('sequelize')
 
 exports.index = (req, res) => {
@@ -70,7 +71,32 @@ exports.userwebtoons= (req,res) =>{
 }
 
 exports.fav = (req,res) => {
-    
+    let favquerry
+    favquerry = User.findOne({
+        where : {
+            id : req.params.user_id
+        },
+        include : [{
+            model : Toons,
+            as : 'toons',
+            required: false,
+            attributes : ['id','tittle','image'],
+            through : {
+                model : UserFav,
+                as : 'userfav',
+                
+            }
+        }]
+    })
+    favquerry.then(toon=>res.send({
+        message : 'success',
+        data : {
+            id: toon.id,
+            toons : toon.toons,
+            
+        }
+    })
+)
 }
 
 

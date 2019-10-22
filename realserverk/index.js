@@ -53,7 +53,7 @@ app.group("/api/v1", (router) => {
 
     //todos API
     router.get('/webtoons', ToonsController.index)  
-    router.get('user/:user_id/favorite', ToonsController.fav)  
+    router.get('/user/:user_id/favorites', ToonsController.fav)  
     router.get('/webtoon/:user_id', ToonsController.userwebtoons)    
     router.post('/webtoon', authenticated,ToonsController.store)    
     router.patch('/webtoon/:id', authenticated,ToonsController.update)    
