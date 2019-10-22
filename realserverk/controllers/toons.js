@@ -69,7 +69,9 @@ exports.userwebtoons= (req,res) =>{
     userwebtoonq.then(toon=>res.send(toon))
 }
 
-
+exports.fav = (req,res) => {
+    
+}
 
 
 exports.show = (req, res) => {

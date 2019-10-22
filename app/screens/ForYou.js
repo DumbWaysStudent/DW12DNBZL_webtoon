@@ -14,17 +14,22 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from 'axios'
 import {ip} from '../ip'
+import config from '../../config-env'
+import {connect} from 'react-redux'
+import {getAllToon} from '../_redux/store'
 
 
 
-export default class Foryouscreen extends Component{
+class Foryouscreen extends Component{
   constructor(props){
     super(props)
     this.state={
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 200,
       entries: [],
-      search : ''
+      search : '',
+      toons : [],
+      favorites : [],
     }
   }
   
@@ -33,8 +38,10 @@ export default class Foryouscreen extends Component{
     .then(res => {
       const entries = res.data
       this.setState({entries})
-      console.log(entries)
+      
     })
+    this.showToon()
+   
   }
 
 async search(text){
@@ -47,6 +54,9 @@ async search(text){
   })
 }
 
+  showToon = () => {
+    this.props.getAllToon()
+  }
 
   renderPage(image, index) {
     return (
@@ -85,7 +95,8 @@ async search(text){
   }
   
   render() {
-    
+    const {toons} = this.props
+    console.log('TOOOONSSSS',this.props.toons)
     return (
       <Container>
         <Header searchBar rounded style={styles.header}>
@@ -145,6 +156,21 @@ async search(text){
     )
   }
 };
+const mapStateToProps = state => {
+  return {
+    toons: state.toons
+  }
+}
+
+const mapDispatchToProps = {
+  getAllToon
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Foryouscreen)
+
 
 const styles = StyleSheet.create({
   container: {

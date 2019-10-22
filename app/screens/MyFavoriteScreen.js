@@ -32,6 +32,7 @@ export default class My_favourite_screen extends Component{
       if (tokening !== null) {
         console.log("Session token",tokening)
         console.log("id_user", id_user)
+        this.setState({token : tokening })
       }else{
         console.log("Youre not Logged in Yet");
         alert('must login first')

@@ -15,7 +15,13 @@ module.exports = (sequelize, DataTypes) => {
     toons.belongsTo(models.user, {
       as : 'createdBy',
       foreignKey: 'created_By',
+    }),
+    toons.belongsToMany(models.user,{
+      through: 'userfav',
+      as : 'users',
+      foreignKey : 'toon_id',
+      otherKey : 'user_id'
     })
-  };
+  }
   return toons;
 };

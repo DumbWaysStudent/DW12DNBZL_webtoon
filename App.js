@@ -17,6 +17,9 @@ import edit_create_webtoon_episode from './app/screens/EditWebtoonEpisode'
 import Edit_profile from './app/screens/EditProfile'
 import My_webtoon_creation from './app/screens/MyWebtoonCreation'
 import Register from './app/screens/Register'
+import {Provider} from 'react-redux'
+import store from './app/_redux/store'
+
 
 
 
@@ -217,6 +220,10 @@ export default class App extends Component{
   
   render(){
     const { navigate } = this.props;
-    return <AppContainer/>
+    return (
+      <Provider store={store}>
+        <AppContainer/>
+      </Provider>
+    )
   }
 }
