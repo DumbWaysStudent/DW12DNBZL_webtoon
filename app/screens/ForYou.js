@@ -19,7 +19,6 @@ import {getAllToon} from '../_redux/store'
 import AsyncStorage from '@react-native-community/async-storage'
 
 
-
 class Foryouscreen extends Component{
   constructor(props){
     super(props)
@@ -76,6 +75,7 @@ async search(text){
   }
 
   async delfav(id_toon){
+    this.state.favarray.splice(id_toon)
     await axios.delete(`${ip}/user/${this.state.id_user}/favorites/${id_toon}`)
     this.takefav()
   }
@@ -85,7 +85,6 @@ async search(text){
     .then(res => {
       const favorites = res.data.data
       this.setState({favorites})
-      console.log('FAVORITES ' ,this.state.favorites)
     })
   }
 
@@ -178,7 +177,8 @@ async search(text){
           
             <FlatList
            style={styles.allContainer}
-            data={this.state.entries} 
+            data={toons.toons} 
+            extraData={this.state}
             renderItem={({ item }) => this.allPage(item)}
             keyExtractor={item => item.id}>
             </FlatList> 

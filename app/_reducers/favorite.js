@@ -1,30 +1,30 @@
 
 import {
-    GET_ALL_TOON_PENDING,
-    GET_ALL_TOON_FULFILLED,
-    GET_ALL_TOON_REJECTED,
+    GET_ALL_FAV_PENDING,
+    GET_ALL_FAV_FULFILLED,
+    GET_ALL_FAV_REJECTED,
   } from '../_redux/types';
 
 const initialState = {
-  toons: [],
+  fav: [],
   error: null,
   isLoading: true,
 }
 
-const toons = (state = initialState, action) => {
+const fav = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ALL_TOON_PENDING:
+    case GET_ALL_FAV_PENDING:
       return {
         ...state,
         isLoading: action.payload,
       };
-    case GET_ALL_TOON_FULFILLED:
+    case GET_ALL_FAV_FULFILLED:
       return {
         ...state,
-        toons: action.payload,
+        fav: action.payload,
         isLoading: action.isLoading,
       };
-    case GET_ALL_TOON_REJECTED:
+    case GET_ALL_FAV_REJECTED:
       return {
         ...state,
         error: action.payload,
@@ -35,4 +35,4 @@ const toons = (state = initialState, action) => {
   }
 }
 
-export default toons
+export default fav

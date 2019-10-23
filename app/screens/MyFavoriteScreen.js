@@ -7,14 +7,15 @@
  */
 
 import React, { Component } from 'react';
-import { Icon,Container,Header,Text, Body, Content, Item, Input, Button,ListItem,Label} from 'native-base'
+import { Icon,Container,Header,Text, Body, Item, Input, Button,ListItem,Label} from 'native-base'
 import {Image,StyleSheet,Dimensions,FlatList,TouchableOpacity,SafeAreaView,View} from 'react-native';
 import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
 import {ip} from '../ip'
+import {connect} from 'react-redux'
+import {getAllFav} from '../_redux/favstore'
 
-
-export default class My_favourite_screen extends Component{
+class My_favourite_screen extends Component{
   constructor(props){
     super(props)
     this.state={
@@ -22,7 +23,9 @@ export default class My_favourite_screen extends Component{
       BannerHeight: 260,
       token : '',
       entries: [],
-      id_user : 0
+      fav : [],
+      id_user : 0,
+      refresh: null
     }
   }
 
@@ -32,8 +35,6 @@ export default class My_favourite_screen extends Component{
       const tokening = await AsyncStorage.getItem('userToken');
       const id_user = await AsyncStorage.getItem('userID');
       if (tokening !== null) {
-        console.log("Session token",tokening)
-        console.log("id_user", id_user)
         this.setState({token : tokening, id_user })
       }else{
         console.log("Youre not Logged in Yet");
@@ -52,7 +53,6 @@ export default class My_favourite_screen extends Component{
     //retrieve id toon
     const tokening = await AsyncStorage.getItem('userToken');
     const id = await AsyncStorage.getItem('userID');
-    let new_id = JSON.parse(id)
     
     await axios.get(`${ip}/user/${this.state.id_user}/favorites`,{
       headers: {
@@ -62,8 +62,12 @@ export default class My_favourite_screen extends Component{
     .then(res => {
       const entries = res.data.data
       this.setState({entries})
-      console.log(entries)
     })
+    this.showFav()
+  }
+
+  showFav = (id_user) => {
+    this.props.getAllFav(id_user)
   }
 
   allPage(image, index) {
@@ -81,7 +85,7 @@ export default class My_favourite_screen extends Component{
   }
   
   render() {
-    
+    const {fav} = this.props
     return (
       <Container >
         <Header searchBar rounded style={styles.headercontainer}>
@@ -103,6 +107,7 @@ export default class My_favourite_screen extends Component{
             data={this.state.entries} 
             renderItem={({ item }) => this.allPage(item)}
             keyExtractor={item => item.id}
+            extraData={this.state}
             >
             </FlatList>
         </SafeAreaView>
@@ -112,6 +117,22 @@ export default class My_favourite_screen extends Component{
     )
   }
 };
+
+const mapStateToProps = state => {
+  return {
+    fav: state.fav
+  }
+}
+
+const mapDispatchToProps = {
+  getAllFav
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(My_favourite_screen)
+
 
 const styles = StyleSheet.create({
   container: {
