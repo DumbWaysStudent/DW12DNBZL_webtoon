@@ -89,14 +89,37 @@ exports.fav = (req,res) => {
         }]
     })
     favquerry.then(toon=>res.send({
-        message : 'success',
-        data : {
-            id: toon.id,
-            toons : toon.toons,
-            
-        }
+        data : toon.toons
     })
 )
+}
+
+exports.favstore=(req,res) => {
+    const favdata={
+        user_id : req.params.user_id,
+        toon_id : req.params.toon_id
+    }
+    UserFav.create(favdata).then(fav=>{
+        res.send({
+            message:"succeess",
+            fav
+        })
+    })
+}
+
+exports.favdelete=(req,res) =>{
+   
+    UserFav.destroy({
+        where : {
+            user_id : req.params.user_id,
+            toon_id : req.params.toon_id
+        }
+    }).then(toon=>{
+        res.send({
+            message : "success delete",
+            toon
+        })
+    })
 }
 
 

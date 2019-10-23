@@ -53,12 +53,15 @@ app.group("/api/v1", (router) => {
 
     //todos API
     router.get('/webtoons', ToonsController.index)  
-    router.get('/user/:user_id/favorites', ToonsController.fav)  
     router.get('/webtoon/:user_id', ToonsController.userwebtoons)    
     router.post('/webtoon', authenticated,ToonsController.store)    
     router.patch('/webtoon/:id', authenticated,ToonsController.update)    
     router.delete('/webtoon/:id', authenticated,ToonsController.delete)
-    //another APIs goes here
+    //Favorites API
+    router.get('/user/:user_id/favorites', ToonsController.fav)  
+    router.post('/user/:user_id/favorites/:toon_id', ToonsController.favstore)
+    router.delete('/user/:user_id/favorites/:toon_id', ToonsController.favdelete)
+
     //episode API
     router.get('/webtoon/:toonID/episodes', EpisodeController.index)    
     //pages API

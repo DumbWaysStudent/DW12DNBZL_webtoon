@@ -7,8 +7,8 @@
  */
 
 import React, { Component } from 'react';
-import { Icon,Container,Header,Text, Body, Content, Item, Input, Button,ListItem} from 'native-base'
-import {Image,StyleSheet,Dimensions,FlatList,TouchableOpacity,SafeAreaView} from 'react-native';
+import { Icon,Container,Header,Text, Body, Content, Item, Input, Button,ListItem,Label} from 'native-base'
+import {Image,StyleSheet,Dimensions,FlatList,TouchableOpacity,SafeAreaView,View} from 'react-native';
 import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
 import {ip} from '../ip'
@@ -21,9 +21,11 @@ export default class My_favourite_screen extends Component{
       BannerWidth: Dimensions.get('window').width,
       BannerHeight: 260,
       token : '',
-      entries: []
+      entries: [],
+      id_user : 0
     }
   }
+
   
   async retrieveSessionToken() {
     try {
@@ -32,7 +34,7 @@ export default class My_favourite_screen extends Component{
       if (tokening !== null) {
         console.log("Session token",tokening)
         console.log("id_user", id_user)
-        this.setState({token : tokening })
+        this.setState({token : tokening, id_user })
       }else{
         console.log("Youre not Logged in Yet");
         alert('must login first')
@@ -51,13 +53,14 @@ export default class My_favourite_screen extends Component{
     const tokening = await AsyncStorage.getItem('userToken');
     const id = await AsyncStorage.getItem('userID');
     let new_id = JSON.parse(id)
-    await axios.get(`${ip}/user/${new_id}`,{
+    
+    await axios.get(`${ip}/user/${this.state.id_user}/favorites`,{
       headers: {
         'Authorization': 'Bearer '+ tokening
       }
     })
     .then(res => {
-      const entries = res.data
+      const entries = res.data.data
       this.setState({entries})
       console.log(entries)
     })
@@ -70,7 +73,7 @@ export default class My_favourite_screen extends Component{
         <Image source={{uri : image.image}} style={styles.image}></Image>
         </TouchableOpacity>
         <Body>
-        <Text style={styles.title}>{image.title}</Text>
+        <Text style={styles.title}>{image.tittle}</Text>
         <Text style={styles.favoritetext}>{image.favorite}</Text>
         </Body>
       </ListItem>
@@ -90,7 +93,11 @@ export default class My_favourite_screen extends Component{
             <Text>Search</Text>
           </Button>
           </Header>
-        <Content contentContainerStyle={styles.container}>
+          <View style={styles.subMenuTextContainer}>
+            <Label>
+              <Text style={styles.text}>My Favourite</Text>
+            </Label>
+          </View>
         <SafeAreaView>
             <FlatList
             data={this.state.entries} 
@@ -99,7 +106,7 @@ export default class My_favourite_screen extends Component{
             >
             </FlatList>
         </SafeAreaView>
-        </Content>
+       
         
       </Container>
     )
@@ -108,7 +115,7 @@ export default class My_favourite_screen extends Component{
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
+      
       backgroundColor: '#eaeaea',
       justifyContent: 'center'
   },
@@ -132,6 +139,11 @@ const styles = StyleSheet.create({
   favoritetext:{
     fontSize:10, 
     marginTop:10
-  }
+  },
+  subMenuTextContainer :{
+    marginLeft:15,
+    marginTop : 10,
+    marginBottom: 5
+  },
 
 });

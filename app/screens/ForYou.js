@@ -14,9 +14,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from 'axios'
 import {ip} from '../ip'
-import config from '../../config-env'
 import {connect} from 'react-redux'
 import {getAllToon} from '../_redux/store'
+import AsyncStorage from '@react-native-community/async-storage'
 
 
 
@@ -30,10 +30,13 @@ class Foryouscreen extends Component{
       search : '',
       toons : [],
       favorites : [],
+      favarray : [],
+      id_user : 0
     }
   }
   
   async componentDidMount(){
+    this.foryou()
     await axios.get(`${ip}/webtoons`)
     .then(res => {
       const entries = res.data
@@ -45,7 +48,6 @@ class Foryouscreen extends Component{
   }
 
 async search(text){
-  console.log(text)
   await axios.get(`${ip}/webtoons?title=${text}`)
   .then(res => {
     const entries = res.data
@@ -58,6 +60,35 @@ async search(text){
     this.props.getAllToon()
   }
 
+  async foryou(){
+    const id_user = await AsyncStorage.getItem('userID');
+    if (id_user !== null)  {
+      this.setState({id_user})
+      this.takefav() 
+    }else{
+      
+    }
+  }
+
+  async addfav(id_toon){
+    await axios.post(`${ip}/user/${this.state.id_user}/favorites/${id_toon}`)
+    this.takefav()
+  }
+
+  async delfav(id_toon){
+    await axios.delete(`${ip}/user/${this.state.id_user}/favorites/${id_toon}`)
+    this.takefav()
+  }
+
+  async takefav(){
+    await axios.get(`${ip}/user/${this.state.id_user}/favorites`)
+    .then(res => {
+      const favorites = res.data.data
+      this.setState({favorites})
+      console.log('FAVORITES ' ,this.state.favorites)
+    })
+  }
+
   renderPage(image, index) {
     return (
         <View key={index}>
@@ -68,6 +99,7 @@ async search(text){
     );
 }
   favoritePage(image) {
+    this.state.favarray.push(image.id)
     return (
       <View style={styles.favoriteContainer}>
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})}>
@@ -79,15 +111,17 @@ async search(text){
   }
   allPage(image) {
     return (
-      
       <ListItem style={styles.listItemContainer}>
         <TouchableOpacity onPress={()=>this.props.navigation.navigate("Detail_screen", {title :image})}>
         <Image source={{uri : image.image}} style={styles.image}></Image>
         </TouchableOpacity>
         <Body>
         <Text style={styles.tittleall}>{image.tittle}</Text>
-        <Button success style={styles.favoritebutton}><Text style={{fontSize:7}} onPress={()=> alert('favpress')}>+ Favorite</Text>
+        {(this.state.favarray.includes(image.id)) ? 
+        <Button success style={styles.favoritebutton}  onPress={()=> this.delfav(image.id)}><Text style={{fontSize:7}}>FAVORITED</Text>
         </Button>
+        : 
+        <Button success style={styles.favoritebuttondisabled} onPress={()=> this.addfav(image.id)}><Text style={{fontSize:7}}>+ FAVORITE</Text></Button>}
         </Body>
       </ListItem>
      
@@ -96,7 +130,6 @@ async search(text){
   
   render() {
     const {toons} = this.props
-    console.log('TOOOONSSSS',this.props.toons)
     return (
       <Container>
         <Header searchBar rounded style={styles.header}>
@@ -110,6 +143,7 @@ async search(text){
             <Text>Search</Text>
           </Button>
           </Header>
+        
         <Content contentContainerStyle={styles.container}>
           <View style={styles.container}>
                 <Carousel
@@ -131,7 +165,7 @@ async search(text){
           </View>
           <View >
             <ScrollView horizontal={true} >
-              {this.state.entries.map((image, index) => this.favoritePage(image, index))}
+              {this.state.favorites.map((image, index) => this.favoritePage(image, index))}
             </ScrollView>
           </View>
           </View>
@@ -141,14 +175,14 @@ async search(text){
               <Text style={styles.text}>All</Text>
             </Label>
           </View>
-          <SafeAreaView>
+          
             <FlatList
            style={styles.allContainer}
             data={this.state.entries} 
             renderItem={({ item }) => this.allPage(item)}
             keyExtractor={item => item.id}>
             </FlatList> 
-            </SafeAreaView>
+           
           </View>
         </Content>
         
@@ -174,7 +208,7 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor : '#eaeaea',
+    backgroundColor : '#673ab7',
     width : Dimensions.get('window').width,
     borderWidth: 1,
     borderColor : 'black'
@@ -243,5 +277,11 @@ const styles = StyleSheet.create({
   tittleall :{
     fontSize:15,
     marginBottom : 10
-  }
+  },
+  favoritebuttondisabled:{
+    height:20,
+    width:70,
+    marginLeft : 12,
+    backgroundColor: 'black'
+  },
 })

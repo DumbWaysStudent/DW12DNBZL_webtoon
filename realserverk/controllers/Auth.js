@@ -7,7 +7,7 @@ const multer  = require('multer');
 const User = models.user
 
 const ip = `http://192.168.1.41:5000/`
-const upload = multer({dest : './public/img/'})
+
 
 exports.login = (req, res)=>{    
     //check if email and pass match in db tbl user
